@@ -31,7 +31,7 @@ class AppNavigation extends React.Component {
         theme={theme} 
         defaultSelectedPath="home"
         selectedPath={this.state.selectedPath}
-        onItemSelection={this.onItemSelection}  
+        onItemSelection={this.onItemSelection}
       >
         <Nav id={"home"}>
           <NavIcon>
