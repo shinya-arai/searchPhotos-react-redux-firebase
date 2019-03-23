@@ -1,35 +1,43 @@
 import React from 'react';
-import { menu } from 'react-icons-kit/iconic/menu';
-import { Icon } from 'react-icons-kit';
-import { Dropdown } from 'semantic-ui-react';
+import unsplash from '../apis/unsplash';
 
 import AppNavigation from './sidenav';
+import Navbar from './navbar';
+import ImageList from './Images/ImageList';
 import { NavbarContainer } from '../styled/navbar';
 import { SideNavContainer, Title } from '../styled/sidenav';
 
 
 class MainPage extends React.Component {
+  state = { photos: [] };
+
+  async componentDidMount() {
+    const response = await unsplash.get('/photos');
+
+    this.setState({ photos: response.data });
+  }
+
   render() {
     return (
       <div style={{ display: 'flex' }}>
+
         <SideNavContainer>
           <Title>SideNav</Title>
-          <AppNavigation />
+          <AppNavigation />   {/* sidenav */}
         </SideNavContainer>
+
         <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
+
           <NavbarContainer>
-            <div className="ui secondary pointing menu" style={{ height: '5rem', paddingBottom: '1rem' }}>
-              <div className="ui item"><Icon icon={menu} /></div>
-              <div class="ui right item" style={{ marginRight: '40px' }}>
-                <Dropdown text="名前">
-                  <Dropdown.Menu>
-                    <Dropdown.Item text="ログアウト" />
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
-            </div>
+            <Navbar />   {/* navbar */}
           </NavbarContainer>
-          
+
+          <div className="ui raised segment" style={{ margin: 0, height: '5rem', padding: 0 }}>
+            <span style={{ lineHeight: '5rem', paddingLeft: '2rem' }}>選択したもの</span>
+          </div>
+
+          <ImageList photos={this.state.photos} />
+
         </div>
       </div>
     );
