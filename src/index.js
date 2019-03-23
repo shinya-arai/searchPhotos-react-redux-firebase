@@ -1,9 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './components/App';
+import { createApp } from './App';
+
+const App = createApp;
+
+const rootElement = document.getElementById('root');
 
 ReactDOM.render(
   <App />,
-  document.querySelector('#root')
+  rootElement
 );
