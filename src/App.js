@@ -1,13 +1,13 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import history from './history';
 
-import MainPage from './MainPage';
+import MainPage from './components/MainPage';
 // import GoogleLogin from './GoogleLogin';
 // import ErrorDisplay from './ErrorDisplay';
 
 const App = () => {
   return (
-    <Router>
       <Switch>
         <>
           <Route path="/" exact component={MainPage} />
@@ -15,8 +15,13 @@ const App = () => {
           {/* <Route component={ErrorDisplay} /> */}
         </>
       </Switch>
-    </Router>
   );
 };
 
-export default App;
+export const createApp = () => {
+  return (
+    <Router history={history}>
+      <App />
+    </Router>
+  );
+};
