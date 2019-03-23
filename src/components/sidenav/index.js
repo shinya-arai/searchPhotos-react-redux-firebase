@@ -23,7 +23,6 @@ class AppNavigation extends React.Component {
 
   onItemSelection = (arg) => {
     this.setState({ selectedPath: arg.path });
-    this.props.changePath(arg.path);
   };
 
   render() {
