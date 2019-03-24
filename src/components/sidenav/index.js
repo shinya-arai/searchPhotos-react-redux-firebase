@@ -37,6 +37,8 @@ class AppNavigation extends React.Component {
 
   render() {
     const { isOpen } = this.state;
+    const { onSearchPhotos, isPhotos } = this.props;
+
     return (
       <>
         <SideNav
@@ -66,9 +68,13 @@ class AppNavigation extends React.Component {
         </SideNav>
 
         { isOpen && (
-          <SearchBar onClose={this.onClose} />
+          <SearchBar 
+            onClose={this.onClose} 
+            onSearchPhotos={onSearchPhotos}
+            isPhotos={isPhotos}
+          />
         )}
-        
+
       </>
     );
   } 
