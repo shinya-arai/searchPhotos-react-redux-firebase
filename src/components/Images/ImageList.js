@@ -3,7 +3,6 @@ import React from 'react';
 const ImageList = ({ photos }) => {
   
   return photos.map(({ id, urls, description }) => {
-    console.log(photos);
     return (
       <div key={id} style={{ display: 'flex', alignItems: 'center' }}>
           <div className="ui medium images">
