@@ -12,7 +12,12 @@ class MainPage extends React.Component {
   state = { photos: [] };
 
   async componentDidMount() {
-    const response = await unsplash.get('/photos');
+    const response = await unsplash.get('/photos', {
+      params: {
+
+        order_by: 'popular'
+      }
+    });
 
     this.setState({ photos: response.data });
   }
@@ -36,7 +41,10 @@ class MainPage extends React.Component {
             <span style={{ lineHeight: '5rem', paddingLeft: '2rem' }}>選択したもの</span>
           </div>
 
-          <ImageList photos={this.state.photos} />
+
+          <div style={{ padding: '10px', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }} >
+            <ImageList photos={this.state.photos} />
+          </div>
 
         </div>
       </div>

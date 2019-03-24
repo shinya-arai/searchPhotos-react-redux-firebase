@@ -1,21 +1,20 @@
 import React from 'react';
+import { Container, Row, Col } from 'reactstrap';
 
-const ImageList = (props) => {
-  const PhotoList = props.photos.map(({id, urls, description}) => {
+const ImageList = ({ photos }) => {
+  
+  return photos.map(({ id, urls, description }) => {
+    console.log(photos);
     return (
-      <div key={id}>
-        <img src={urls.regular} alt={description} />
+      <div key={id} style={{ display: 'flex', alignItems: 'center' }}>
+          <div className="ui medium images">
+            <div className="ui segment" style={{ margin: '10px', backgroundColor: ' beige' }}>
+              <img  src={urls.regular} alt={description} />
+            </div>
+          </div>
       </div>
     );
   });
-
-  return (
-    <div>
-      {PhotoList}
-    </div>
-  );
-
-
 };
 
 export default ImageList;
