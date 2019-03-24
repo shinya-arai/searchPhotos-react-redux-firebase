@@ -14,7 +14,6 @@ class MainPage extends React.Component {
   async componentDidMount() {
     const response = await unsplash.get('/photos', {
       params: {
-
         order_by: 'popular'
       }
     });

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
-import history from './history';
+import { Grommet } from 'grommet';
+import { grommet } from 'grommet/themes';
 
+import history from './history';
 import MainPage from './components/MainPage';
 // import GoogleLogin from './GoogleLogin';
 // import ErrorDisplay from './ErrorDisplay';
@@ -21,7 +23,9 @@ const App = () => {
 export const createApp = () => {
   return (
     <Router history={history}>
-      <App />
+      <Grommet theme={grommet} full>
+        <App />
+      </Grommet>
     </Router>
   );
 };
