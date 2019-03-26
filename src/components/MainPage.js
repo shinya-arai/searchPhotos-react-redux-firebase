@@ -46,7 +46,7 @@ class MainPage extends React.Component {
 
   render() {
     return (
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', height: '100vh' }}>
 
         <SideNavContainer>
           <Title>写真館</Title>
@@ -65,7 +65,7 @@ class MainPage extends React.Component {
           </div>
 
 
-          <div style={{ padding: '10px', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }} >
+          <div style={{ padding: '10px', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', overflowY: 'scroll', backgroundColor: 'ghostwhite' }} >
             <ImageList photos={this.state.photos} />
           </div>
         </div>
