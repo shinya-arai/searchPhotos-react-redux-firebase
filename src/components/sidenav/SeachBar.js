@@ -10,12 +10,12 @@ class SearchBar extends React.Component {
     this.props.onSearchPhotos(this.state.term);
 
 
-    if(!this.props.isPhotos) {
-      console.log(false);
-    } else {
-      // this.props.onClose();
-      console.log(true);
-    }
+    // if(!this.props.isPhotos) {
+    //   console.log(false);
+    // } else {
+    //   this.props.onClose();
+    //   console.log(true);
+    // }
   }
 
   render() {
