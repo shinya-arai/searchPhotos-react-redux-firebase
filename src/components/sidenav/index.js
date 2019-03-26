@@ -7,7 +7,7 @@ import { home } from 'react-icons-kit/fa/home';
 import { ic_menu } from 'react-icons-kit/md/ic_menu';
 import { toggleRight } from 'react-icons-kit/fa/toggleRight';
 
-import SearchBar from './SeachBar';
+import SearchBar from './SeachModal';
 
 const theme = {
   hoverBgColor: '#f5f5f5',
@@ -40,7 +40,7 @@ class AppNavigation extends React.Component {
     const { onSearchPhotos, isPhotos } = this.props;
 
     return (
-      <>
+      <div style={{ height: 0 }}>
         <SideNav
           theme={theme} 
           defaultSelectedPath="home"
@@ -75,7 +75,7 @@ class AppNavigation extends React.Component {
           />
         )}
 
-      </>
+      </div>
     );
   } 
 };
