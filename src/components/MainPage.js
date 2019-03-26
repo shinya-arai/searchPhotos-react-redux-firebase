@@ -1,11 +1,17 @@
 import React from 'react';
 import unsplash from '../apis/unsplash';
 
-import AppNavigation from './sidenav';
-import Navbar from './navbar';
+import AppNavigation from './SideNav';
+import NavBar from './NavBar';
 import ImageList from './Images/ImageList';
-import { NavbarContainer } from '../styled/navbar';
-import { SideNavContainer, Title } from '../styled/sidenav';
+
+import { 
+  NavbarContainer, 
+  SideNavContainer, 
+  Title, 
+  ImageListContainer,
+  SearchTerm,
+} from '../styled/MainPage';
 
 
 class MainPage extends React.Component {
@@ -25,7 +31,6 @@ class MainPage extends React.Component {
     const response = await unsplash.get('/search/photos', {
       params: {
         query: term,
-        order_by: 'popular'
       }
     });
 
@@ -55,19 +60,18 @@ class MainPage extends React.Component {
 
         <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
           <NavbarContainer>
-            <Navbar />   {/* navbar */}
+            <NavBar />   {/* navbar */}
           </NavbarContainer>
 
           <div className="ui raised segment" style={{ margin: 0, height: '5rem', padding: 0 }}>
-            <span style={{ lineHeight: '5rem', paddingLeft: '2rem', fontFamily: 'serif', fontSize: 'large' }}>
+            <SearchTerm>
               {this.displayTerm()}
-            </span>
+            </SearchTerm>
           </div>
 
-
-          <div style={{ padding: '10px', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', overflowY: 'scroll', backgroundColor: 'ghostwhite' }} >
+          <ImageListContainer>
             <ImageList photos={this.state.photos} />
-          </div>
+          </ImageListContainer>
         </div>
     
       </div>

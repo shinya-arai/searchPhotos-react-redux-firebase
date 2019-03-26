@@ -3,7 +3,7 @@ import { menu } from 'react-icons-kit/iconic/menu';
 import { Icon } from 'react-icons-kit';
 import { Dropdown } from 'semantic-ui-react';
 
-const Navbar = () => {
+const NavBar = () => {
   return (
     <div className="ui secondary pointing menu" style={{ height: '5rem', paddingBottom: '1rem' }}>
       <div className="ui item"><Icon style={{ color: 'white' }} icon={menu} /></div>
@@ -18,4 +18,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;
