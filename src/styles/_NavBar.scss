@@ -1,0 +1,13 @@
+.icon-nav {
+  cursor: pointer;
+  width: 8%;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    opacity: 0.6;
+    background-color: grey;
+  }
+}

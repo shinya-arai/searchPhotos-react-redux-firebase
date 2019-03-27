@@ -11,11 +11,12 @@ import {
   Title, 
   ImageListContainer,
   SearchTerm,
+  ContentsWrapper,
 } from '../styled/MainPage';
 
 
 class MainPage extends React.Component {
-  state = { photos: [], term: '', isPhotos: null };
+  state = { photos: [], term: '', isPhotos: null, isOpen: true };
 
   async componentDidMount() {
     const response = await unsplash.get('/photos', {
@@ -49,18 +50,27 @@ class MainPage extends React.Component {
     }
   };
 
+  toggleChangeWidth = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  }
+
   render() {
+    const { isOpen } = this.state;
+
     return (
       <div style={{ display: 'flex', height: '100vh' }}>
 
-        <SideNavContainer>
+        <SideNavContainer style={isOpen ? { width: '20%' } : { width: '5%' }}>
           <Title>写真館</Title>
-          <AppNavigation onSearchPhotos={this.onSearchPhotos} isPhotos={this.state.isPhotos} />   {/* sidenav */}
+          <AppNavigation 
+            onSearchPhotos={this.onSearchPhotos} 
+            isPhotos={this.state.isPhotos}
+          />
         </SideNavContainer>
 
-        <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
+        <ContentsWrapper style={isOpen ? { width: '80%' } : { width: '95%' }}>
           <NavbarContainer>
-            <NavBar />   {/* navbar */}
+            <NavBar toggleChangeWidth={this.toggleChangeWidth} />
           </NavbarContainer>
 
           <div className="ui raised segment" style={{ margin: 0, height: '5rem', padding: 0 }}>
@@ -72,7 +82,7 @@ class MainPage extends React.Component {
           <ImageListContainer>
             <ImageList photos={this.state.photos} />
           </ImageListContainer>
-        </div>
+        </ContentsWrapper>
     
       </div>
     );

@@ -21,22 +21,22 @@ const Text = styled.div`
 
 
 class AppNavigation extends React.Component {
-  state = { selectedPath: '', isOpen: false };
+  state = { selectedPath: '', isModalOpen: false };
 
   onItemSelection = (arg) => {
     this.setState({ selectedPath: arg.path });
   }
 
   onOpen = () => {
-    this.setState({ isOpen: true });
+    this.setState({ isModalOpen: true });
   }
 
   onClose = () => {
-    this.setState({ isOpen: false });
+    this.setState({ isModalOpen: false });
   }
 
   render() {
-    const { isOpen } = this.state;
+    const { isModalOpen } = this.state;
     const { onSearchPhotos, isPhotos } = this.props;
 
     return (
@@ -49,25 +49,25 @@ class AppNavigation extends React.Component {
         >
           <Nav onClick={this.onOpen} id={"home"}>
             <NavIcon>
-              <Icon icon={home} />
+              <Icon size={40} icon={home} />
             </NavIcon>
             <Text>Home</Text>
           </Nav>
           <Nav id={"menu"}>
             <NavIcon>
-              <Icon icon={ic_menu} />
+              <Icon size={40} icon={ic_menu} />
             </NavIcon>
             <Text>Menu</Text>
           </Nav>
           <Nav id={"toggle"}>
             <NavIcon>
-              <Icon icon={toggleRight} />
+              <Icon size={40} icon={toggleRight} />
             </NavIcon>
             <Text>ToggleRight</Text>
           </Nav>
         </SideNav>
 
-        { isOpen && (
+        { isModalOpen && (
           <SearchBar 
             onClose={this.onClose} 
             onSearchPhotos={onSearchPhotos}
