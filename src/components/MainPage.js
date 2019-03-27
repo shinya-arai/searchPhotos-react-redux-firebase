@@ -65,6 +65,7 @@ class MainPage extends React.Component {
           <AppNavigation 
             onSearchPhotos={this.onSearchPhotos} 
             isPhotos={this.state.isPhotos}
+            isOpen={isOpen}
           />
         </SideNavContainer>
 
