@@ -37,7 +37,7 @@ class AppNavigation extends React.Component {
 
   render() {
     const { isModalOpen } = this.state;
-    const { onSearchPhotos, isPhotos } = this.props;
+    const { onSearchPhotos, isPhotos, isOpen } = this.props;
 
     return (
       <div style={{ height: 0 }}>
@@ -51,19 +51,25 @@ class AppNavigation extends React.Component {
             <NavIcon>
               <Icon size={40} icon={home} />
             </NavIcon>
-            <Text>Home</Text>
+            {isOpen && (
+              <Text>Home</Text>
+            )}
           </Nav>
           <Nav id={"menu"}>
             <NavIcon>
               <Icon size={40} icon={ic_menu} />
             </NavIcon>
-            <Text>Menu</Text>
+            {isOpen && (
+              <Text>Menu</Text>
+            )}
           </Nav>
           <Nav id={"toggle"}>
             <NavIcon>
               <Icon size={40} icon={toggleRight} />
             </NavIcon>
-            <Text>ToggleRight</Text>
+            {isOpen && (
+              <Text>ToggleRight</Text>
+            )}
           </Nav>
         </SideNav>
 
