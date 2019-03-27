@@ -1,12 +1,16 @@
 import styled from 'styled-components';
 
+export const ContentsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const NavbarContainer = styled.div`
   width: 100%;
   background-color: dimgray;
 `;
 
 export const SideNavContainer = styled.div`
-  width: 20%;
   background-color: dimgray;
 `;
 
