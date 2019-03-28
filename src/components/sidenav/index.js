@@ -4,8 +4,7 @@ import { Icon } from 'react-icons-kit';
 import styled from 'styled-components';
 
 import { home } from 'react-icons-kit/fa/home';
-import { ic_menu } from 'react-icons-kit/md/ic_menu';
-import { toggleRight } from 'react-icons-kit/fa/toggleRight';
+import { search } from 'react-icons-kit/fa/search';
 
 import SearchBar from './SeachModal';
 
@@ -27,17 +26,22 @@ class AppNavigation extends React.Component {
     this.setState({ selectedPath: arg.path });
   }
 
-  onOpen = () => {
+  onModalOpen = () => {
     this.setState({ isModalOpen: true });
   }
 
-  onClose = () => {
+  onModalClose = () => {
     this.setState({ isModalOpen: false });
   }
 
   render() {
     const { isModalOpen } = this.state;
-    const { onSearchPhotos, isPhotos, isOpen } = this.props;
+    const { 
+      onSearchPhotos, 
+      isPhotos, 
+      isOpen, 
+      onClickHome, 
+    } = this.props;
 
     return (
       <div style={{ height: 0 }}>
@@ -47,7 +51,11 @@ class AppNavigation extends React.Component {
           selectedPath={this.state.selectedPath}
           onItemSelection={this.onItemSelection}
         >
-          <Nav onClick={this.onOpen} id={"home"}>
+          <Nav 
+            id={"home"}
+            style={!isOpen && {justifyContent: 'center'}}
+            onClick={onClickHome}
+          >
             <NavIcon>
               <Icon size={40} icon={home} />
             </NavIcon>
@@ -55,27 +63,23 @@ class AppNavigation extends React.Component {
               <Text>Home</Text>
             )}
           </Nav>
-          <Nav id={"menu"}>
+          <Nav 
+            id={"search"} 
+            style={!isOpen && {justifyContent: 'center'}}
+            onClick={this.onModalOpen} 
+          >
             <NavIcon>
-              <Icon size={40} icon={ic_menu} />
+              <Icon size={40} icon={search} />
             </NavIcon>
             {isOpen && (
-              <Text>Menu</Text>
-            )}
-          </Nav>
-          <Nav id={"toggle"}>
-            <NavIcon>
-              <Icon size={40} icon={toggleRight} />
-            </NavIcon>
-            {isOpen && (
-              <Text>ToggleRight</Text>
+              <Text>検索</Text>
             )}
           </Nav>
         </SideNav>
 
         { isModalOpen && (
           <SearchBar 
-            onClose={this.onClose} 
+            onModalClose={this.onModalClose} 
             onSearchPhotos={onSearchPhotos}
             isPhotos={isPhotos}
           />

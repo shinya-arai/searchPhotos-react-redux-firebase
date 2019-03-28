@@ -7,16 +7,14 @@ import './styles/index.scss';
 import history from './history';
 import MainPage from './components/MainPage';
 // import GoogleLogin from './GoogleLogin';
-// import ErrorDisplay from './ErrorDisplay';
+import NotFoundPage from './components/Error';
 
 const App = () => {
   return (
       <Switch>
-        <>
           <Route path="/" exact component={MainPage} />
           {/* <Route path="/login" exact component={GoogleLogin} /> */}
-          {/* <Route component={ErrorDisplay} /> */}
-        </>
+          <Route component={NotFoundPage} />
       </Switch>
   );
 };

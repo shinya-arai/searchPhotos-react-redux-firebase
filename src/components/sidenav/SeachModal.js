@@ -19,19 +19,19 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const { onClose, isPhotos } = this.props;
+    const { onModalClose, isPhotos } = this.props;
     const { term } = this.state;
 
     return (
       <Layer 
         position="center" 
         modal 
-        onClickOutside={onClose}
-        onEsc={onClose}
+        onClickOutside={onModalClose}
+        onEsc={onModalClose}
       >
         <Box pad="medium" gap="small" width="medium">
           <Box flex={false} direction="row" justify="between" style={{ justifyContent: 'flex-end' }}>
-            <Button icon={<Close />} onClick={onClose} />
+            <Button icon={<Close />} onClick={onModalClose} />
           </Box>
           <Box
             as="form"
