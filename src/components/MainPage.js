@@ -28,6 +28,16 @@ class MainPage extends React.Component {
     this.setState({ photos: response.data, isPhotos: true });
   }
 
+  onClickHome = async () => {
+    const response = await unsplash.get('/photos', {
+      params: {
+        order_by: 'popular'
+      }
+    });
+
+    this.setState({ photos: response.data, term: '人気の写真' });
+  }
+
   onSearchPhotos = async (term) =>  {
     const response = await unsplash.get('/search/photos', {
       params: {
@@ -60,16 +70,17 @@ class MainPage extends React.Component {
     return (
       <div style={{ display: 'flex', height: '100vh' }}>
 
-        <SideNavContainer style={isOpen ? { width: '20%' } : { width: '5%' }}>
+        <SideNavContainer style={isOpen ? { width: '15%' } : { width: '5%' }}>
           <Title>写真館</Title>
           <AppNavigation 
             onSearchPhotos={this.onSearchPhotos} 
             isPhotos={this.state.isPhotos}
             isOpen={isOpen}
+            onClickHome={this.onClickHome}
           />
         </SideNavContainer>
 
-        <ContentsWrapper style={isOpen ? { width: '80%' } : { width: '95%' }}>
+        <ContentsWrapper style={isOpen ? { width: '85%' } : { width: '95%' }}>
           <NavbarContainer>
             <NavBar toggleChangeWidth={this.toggleChangeWidth} />
           </NavbarContainer>
