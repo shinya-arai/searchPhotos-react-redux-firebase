@@ -2,6 +2,9 @@ import React from 'react';
 import { alignRight } from 'react-icons-kit/fa/alignRight'
 import { Icon } from 'react-icons-kit';
 import { Dropdown } from 'semantic-ui-react';
+import { isMobile } from 'react-device-detect';
+
+import { IconWrapper } from '../../styled/NavBar';
 
 class NavBar extends React.Component {
 
@@ -11,12 +14,12 @@ class NavBar extends React.Component {
 
   render() {
     return (
-      <div className="ui secondary pointing menu" style={{ height: '5rem', paddingBottom: '1rem' }}>
-        <div onClick={this.toggleChangeWidth} className="icon-nav">
-          <Icon size={40} icon={alignRight} style={{ color: 'white' }} />
-        </div>
-        <div className="ui right item" style={{ marginRight: '40px' }}>
-          <Dropdown style={{ color: 'white' }} text="名前">
+      <div className="ui secondary pointing menu navbar-wrapper">
+        <IconWrapper onClick={this.toggleChangeWidth} isMobile={isMobile}>
+          <Icon size={40} icon={alignRight} className="icon" />
+        </IconWrapper>
+        <div className="ui right item drop-wrapp">
+          <Dropdown className="drop-contents" text="名前">
             <Dropdown.Menu>
               <Dropdown.Item text="ログアウト" />
             </Dropdown.Menu>

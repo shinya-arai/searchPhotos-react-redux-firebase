@@ -1,13 +1,16 @@
-.icon-nav {
-  cursor: pointer;
-  width: 8%;
+.navbar-wrapper {
   height: 5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding-bottom: 1rem;
 
-  &:hover {
-    opacity: 0.6;
-    background-color: grey;
+  .icon {
+    color: white;
+  }
+
+  .drop-wrapp {
+    margin-right: 45px !important;
+  }
+
+  .drop-contents {
+    color: white;
   }
 }

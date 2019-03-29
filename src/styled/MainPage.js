@@ -3,22 +3,13 @@ import styled from 'styled-components';
 export const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: ${props => props.isOpen ? '85%' : '95%'};
+  width: ${props => props.isMobile && '100%'}
 `;
 
-export const NavbarContainer = styled.div`
+export const NavBarContainer = styled.div`
   width: 100%;
   background-color: #1C1E21;
-`;
-
-export const SideNavContainer = styled.div`
-  background-color: #1C1E21;
-`;
-
-export const Title = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 10rem;
 `;
 
 export const ImageListContainer = styled.div`

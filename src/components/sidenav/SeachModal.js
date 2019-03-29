@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, Layer, FormField, TextInput } from 'grommet';
 import { FormSearch, Close } from 'grommet-icons';
 
-class SearchBar extends React.Component {
+class SearchModal extends React.Component {
   state = { term: '' };
 
   onSearchPhotos = (e) => {
@@ -73,4 +73,4 @@ class SearchBar extends React.Component {
   }
 };
 
-export default SearchBar;
+export default SearchModal;

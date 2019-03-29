@@ -1,14 +1,12 @@
 import React from 'react';
-import unsplash from '../apis/unsplash';
 
+import unsplash from '../apis/unsplash';
 import AppNavigation from './SideNav';
 import NavBar from './NavBar';
 import ImageList from './Images/ImageList';
 
 import { 
-  NavbarContainer, 
-  SideNavContainer, 
-  Title, 
+  NavBarContainer, 
   ImageListContainer,
   SearchTerm,
   ContentsWrapper,
@@ -16,7 +14,7 @@ import {
 
 
 class MainPage extends React.Component {
-  state = { photos: [], term: '', isPhotos: null, isOpen: true };
+  state = { photos: [], term: '', isPhotos: null, isOpen: true, isMobileOpen: false };
 
   async componentDidMount() {
     const response = await unsplash.get('/photos', {
@@ -66,27 +64,23 @@ class MainPage extends React.Component {
 
   render() {
     const { isOpen } = this.state;
-    console.log(this.state.photos);
 
     return (
       <div style={{ display: 'flex', height: '100vh' }}>
+        
+        <AppNavigation 
+          onSearchPhotos={this.onSearchPhotos} 
+          isPhotos={this.state.isPhotos}
+          isOpen={isOpen}
+          onClickHome={this.onClickHome}
+        />
 
-        <SideNavContainer style={isOpen ? { width: '15%' } : { width: '5%' }}>
-          <Title></Title>
-          <AppNavigation 
-            onSearchPhotos={this.onSearchPhotos} 
-            isPhotos={this.state.isPhotos}
-            isOpen={isOpen}
-            onClickHome={this.onClickHome}
-          />
-        </SideNavContainer>
-
-        <ContentsWrapper style={isOpen ? { width: '85%' } : { width: '95%' }}>
-          <NavbarContainer>
+        <ContentsWrapper isOpen={isOpen} isMobile>
+          <NavBarContainer>
             <NavBar toggleChangeWidth={this.toggleChangeWidth} />
-          </NavbarContainer>
+          </NavBarContainer>
 
-          <div className="ui raised segment" style={{ margin: 0, height: '5rem', padding: 0 }}>
+          <div className="ui raised segment term-wrapper" >
             <SearchTerm>
               {this.displayTerm()}
             </SearchTerm>
