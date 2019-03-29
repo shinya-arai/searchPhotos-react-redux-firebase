@@ -7,11 +7,11 @@ export const ContentsWrapper = styled.div`
 
 export const NavbarContainer = styled.div`
   width: 100%;
-  background-color: dimgray;
+  background-color: #1C1E21;
 `;
 
 export const SideNavContainer = styled.div`
-  background-color: dimgray;
+  background-color: #1C1E21;
 `;
 
 export const Title = styled.div`
@@ -33,6 +33,6 @@ export const ImageListContainer = styled.div`
 export const SearchTerm = styled.span`
   line-height: 5rem;
   padding-left: 2rem;
-  font-family: serif;
   font-size: large;
+  font-weight: bold;
 `;

@@ -55,29 +55,34 @@ class AppNavigation extends React.Component {
             id={"home"}
             style={!isOpen && {justifyContent: 'center'}}
             onClick={onClickHome}
+            className='nav-item'
           >
             <NavIcon>
-              <Icon size={40} icon={home} />
+              <Icon size={25} icon={home} />
             </NavIcon>
             {isOpen && (
-              <Text>Home</Text>
+              <Text>ホーム</Text>
             )}
           </Nav>
           <Nav 
             id={"search"} 
             style={!isOpen && {justifyContent: 'center'}}
             onClick={this.onModalOpen} 
+            className='nav-item'
           >
             <NavIcon>
-              <Icon size={40} icon={search} />
+              <Icon size={25} icon={search} />
             </NavIcon>
             {isOpen && (
               <Text>検索</Text>
             )}
+            <Nav>
+              aa
+            </Nav>
           </Nav>
         </SideNav>
 
-        { isModalOpen && (
+        {isModalOpen && (
           <SearchBar 
             onModalClose={this.onModalClose} 
             onSearchPhotos={onSearchPhotos}

@@ -66,12 +66,13 @@ class MainPage extends React.Component {
 
   render() {
     const { isOpen } = this.state;
+    console.log(this.state.photos);
 
     return (
       <div style={{ display: 'flex', height: '100vh' }}>
 
         <SideNavContainer style={isOpen ? { width: '15%' } : { width: '5%' }}>
-          <Title>写真館</Title>
+          <Title></Title>
           <AppNavigation 
             onSearchPhotos={this.onSearchPhotos} 
             isPhotos={this.state.isPhotos}
