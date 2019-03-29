@@ -8,6 +8,7 @@
     "grommet-icons": "^4.2.0",
     "node-sass": "^4.11.0",
     "react": "^16.8.4",
+    "react-device-detect": "^1.6.2",
     "react-dom": "^16.8.4",
     "react-google-login": "^5.0.2",
     "react-icons-kit": "^1.2.1",
