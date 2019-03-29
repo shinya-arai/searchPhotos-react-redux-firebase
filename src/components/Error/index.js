@@ -9,6 +9,7 @@ const NotFoundPage = props => {
 
   return (
     <ErrorWrapper>
+      <div style={{ marginBottom: '2rem' }}>404 Not Found</div>
       <Icon size={100} icon={exclamationTriangle} />
       <div 
         className="ui animated fade button" 
