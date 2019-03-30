@@ -1,6 +1,7 @@
 import React from 'react';
 
 const ImageList = ({ photos }) => {
+  console.log(photos);
   
   return photos.map(({ id, urls, description }) => {
     return (
