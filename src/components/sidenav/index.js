@@ -1,14 +1,8 @@
 import React from 'react';
-import { Nav, SideNav, NavIcon } from 'react-sidenav';
-import { Icon } from 'react-icons-kit';
 import { isMobile, isBrowser } from 'react-device-detect';
+import { Layer } from 'grommet';
 
-import { home } from 'react-icons-kit/fa/home';
-import { search } from 'react-icons-kit/fa/search';
-
-import SearchModal from './SeachModal';
-import { SideNavContainer, theme, Text, Title } from '../../styled/SideNav';
-
+import Menu from './Menu';
 
 class AppNavigation extends React.Component {
   state = { selectedPath: '', isModalOpen: false };
@@ -25,126 +19,52 @@ class AppNavigation extends React.Component {
     this.setState({ isModalOpen: false });
   }
 
+  onCloseMobileSide = () => {
+    this.props.onCloseMobileSide();
+  }
+
+  displayMenu = () => {
+    return (
+      <Menu 
+        isModalOpen={this.state.isModalOpen} 
+        selectedPath={this.state.selectedPath}
+        onSearchPhotos={this.props.onSearchPhotos}
+        isPhotos={this.props.isPhotos}
+        isOpen={this.props.isOpen}
+        onClickHome={this.props.onClickHome}
+        onModalOpen={this.onModalOpen}
+        onModalClose={this.onModalClose}
+        onItemSelection={this.onItemSelection}
+        onCloseMobileSide={this.onCloseMobileSide}
+      />
+    );
+  }
+
   render() {
-    const { isModalOpen, selectedPath } = this.state;
-    const { 
-      onSearchPhotos, 
-      isPhotos, 
-      isOpen, 
-      onClickHome, 
-    } = this.props;
+    const { isMobileSideOpen } = this.props;
 
     if(isBrowser) {
       return (
-        <SideNavContainer isOpen={isOpen}>
-        <Title></Title>
-        <div style={{ height: 0 }}>
-          <SideNav
-            theme={theme} 
-            defaultSelectedPath="home"
-            selectedPath={selectedPath}
-            onItemSelection={this.onItemSelection}
-          >
-            <Nav 
-              id={"home"}
-              style={!isOpen && {justifyContent: 'center'}}
-              onClick={onClickHome}
-              className='nav-item'
-            >
-              <NavIcon>
-                <Icon size={25} icon={home} />
-              </NavIcon>
-              {isOpen && (
-                <Text>ホーム</Text>
-              )}
-            </Nav>
-            <Nav 
-              id={"search"} 
-              style={!isOpen && {justifyContent: 'center'}}
-              onClick={this.onModalOpen} 
-              className='nav-item'
-            >
-              <NavIcon>
-                <Icon size={25} icon={search} />
-              </NavIcon>
-              {isOpen && (
-                <Text>検索</Text>
-              )}
-              {/* <Nav>
-                aa
-              </Nav> */}
-            </Nav>
-          </SideNav>
-        </div>
+        this.displayMenu()
+      );
+    }
 
-        {isModalOpen && (
-          <SearchModal 
-            onModalClose={this.onModalClose} 
-            onSearchPhotos={onSearchPhotos}
-            isPhotos={isPhotos}
-          />
-        )}
-
-      </SideNavContainer>
+    if(isMobile && isMobileSideOpen) {
+      return (
+        <Layer
+          position='left'
+          full='vertical'
+          modal
+          onEsc={this.onCloseMobileSide}
+        >
+          {this.displayMenu()}
+        </Layer>
       );
     }
 
     if(isMobile) {
       return null;
     }
-
-    // return (
-    //   <SideNavContainer isOpen={isOpen}>
-    //     <Title></Title>
-    //     <div style={{ height: 0 }}>
-    //       <SideNav
-    //         theme={theme} 
-    //         defaultSelectedPath="home"
-    //         selectedPath={selectedPath}
-    //         onItemSelection={this.onItemSelection}
-    //       >
-    //         <Nav 
-    //           id={"home"}
-    //           style={!isOpen && {justifyContent: 'center'}}
-    //           onClick={onClickHome}
-    //           className='nav-item'
-    //         >
-    //           <NavIcon>
-    //             <Icon size={25} icon={home} />
-    //           </NavIcon>
-    //           {isOpen && (
-    //             <Text>ホーム</Text>
-    //           )}
-    //         </Nav>
-    //         <Nav 
-    //           id={"search"} 
-    //           style={!isOpen && {justifyContent: 'center'}}
-    //           onClick={this.onModalOpen} 
-    //           className='nav-item'
-    //         >
-    //           <NavIcon>
-    //             <Icon size={25} icon={search} />
-    //           </NavIcon>
-    //           {isOpen && (
-    //             <Text>検索</Text>
-    //           )}
-    //           {/* <Nav>
-    //             aa
-    //           </Nav> */}
-    //         </Nav>
-    //       </SideNav>
-    //     </div>
-
-    //     {isModalOpen && (
-    //       <SearchModal 
-    //         onModalClose={this.onModalClose} 
-    //         onSearchPhotos={onSearchPhotos}
-    //         isPhotos={isPhotos}
-    //       />
-    //     )}
-
-    //   </SideNavContainer>
-    // );
   } 
 };
 

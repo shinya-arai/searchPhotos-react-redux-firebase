@@ -1,21 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Icon } from 'react-icons-kit';
 import { exclamationTriangle } from 'react-icons-kit/fa/exclamationTriangle';
 
-import { ErrorWrapper } from '../../styled/NotFoundPage';
+import { ErrorWrapper, ErrorText } from '../../styled/NotFoundPage';
 
-const NotFoundPage = props => { 
-  const { history } = props;
-
+const NotFoundPage = () => { 
   return (
     <ErrorWrapper>
-      <div style={{ marginBottom: '2rem' }}>404 Not Found</div>
+      <ErrorText>404 Not Found</ErrorText>
       <Icon size={100} icon={exclamationTriangle} />
-      <div 
+      <Link
         className="ui animated fade button" 
         tabIndex="0" 
         style={{ marginTop: '2rem' }}
-        onClick={() => history.push('/')}
+        to='/'
       >
         <div className="visible content">
           トップページへ戻る
@@ -23,7 +22,7 @@ const NotFoundPage = props => {
         <div className="hidden content">
           go back!!
         </div>
-      </div>
+      </Link>
     </ErrorWrapper>
   );
 };

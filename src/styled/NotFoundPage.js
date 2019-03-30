@@ -7,3 +7,8 @@ export const ErrorWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const ErrorText = styled.div`
+  margin-bottom: 2rem;
+  font-weight: bold;
+`;
