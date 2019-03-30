@@ -18,7 +18,7 @@ import {
 
 class MainPage extends React.Component {
   state = { 
-    photos: [], 
+    photos: [],
     term: '', 
     isPhotos: null, 
     isOpen: true, 
