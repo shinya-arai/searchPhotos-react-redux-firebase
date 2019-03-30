@@ -7,15 +7,14 @@ import { isMobile } from 'react-device-detect';
 import { IconWrapper } from '../../styled/NavBar';
 
 class NavBar extends React.Component {
-
-  toggleChangeWidth = () => {
-    this.props.toggleChangeWidth();
+  toggleSideChange = () => {
+    this.props.toggleSideChange()
   }
 
   render() {
     return (
       <div className="ui secondary pointing menu navbar-wrapper">
-        <IconWrapper onClick={this.toggleChangeWidth} isMobile={isMobile}>
+        <IconWrapper onClick={this.toggleSideChange} isMobile={isMobile}>
           <Icon size={40} icon={alignRight} className="icon" />
         </IconWrapper>
         <div className="ui right item drop-wrapp">

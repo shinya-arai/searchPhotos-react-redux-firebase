@@ -1,4 +1,5 @@
 import React from 'react';
+import { isMobile, isBrowser } from 'react-device-detect';
 
 import unsplash from '../apis/unsplash';
 import AppNavigation from './SideNav';
@@ -10,16 +11,23 @@ import {
   ImageListContainer,
   SearchTerm,
   ContentsWrapper,
+  WholeWrapper
 } from '../styled/MainPage';
 
 
 class MainPage extends React.Component {
-  state = { photos: [], term: '', isPhotos: null, isOpen: true, isMobileOpen: false };
+  state = { 
+    photos: [], 
+    term: '', 
+    isPhotos: null, 
+    isOpen: true, 
+    isMobileSideOpen: false,
+  };
 
   async componentDidMount() {
     const response = await unsplash.get('/photos', {
       params: {
-        order_by: 'popular'
+        order_by: 'latest'
       }
     });
 
@@ -29,11 +37,11 @@ class MainPage extends React.Component {
   onClickHome = async () => {
     const response = await unsplash.get('/photos', {
       params: {
-        order_by: 'popular'
+        order_by: 'latest'
       }
     });
 
-    this.setState({ photos: response.data, term: '人気の写真' });
+    this.setState({ photos: response.data, term: '最新の写真' });
   }
 
   onSearchPhotos = async (term) =>  {
@@ -52,35 +60,47 @@ class MainPage extends React.Component {
 
   displayTerm = () => {
     if (!this.state.term) {
-      return <>人気の写真</>;
+      return <>最新の写真</>;
     } else {
       return <>{this.state.term}</>;
     }
   };
 
-  toggleChangeWidth = () => {
-    this.setState({ isOpen: !this.state.isOpen });
+  toggleSideChange = () => {
+    if(isMobile) {
+      this.setState({ isMobileSideOpen: !this.state.isMobileSideOpen });
+    }
+
+    if(isBrowser) {
+      this.setState({ isOpen: !this.state.isOpen });
+    }
+  }
+
+  onCloseMobileSide = () => {
+    this.setState({ isMobileSideOpen: false });
   }
 
   render() {
-    const { isOpen } = this.state;
+    const { isOpen, isMobileSideOpen } = this.state;
 
     return (
-      <div style={{ display: 'flex', height: '100vh' }}>
+      <WholeWrapper>
         
         <AppNavigation 
           onSearchPhotos={this.onSearchPhotos} 
           isPhotos={this.state.isPhotos}
           isOpen={isOpen}
           onClickHome={this.onClickHome}
+          isMobileSideOpen={isMobileSideOpen}
+          onCloseMobileSide={this.onCloseMobileSide}
         />
 
         <ContentsWrapper isOpen={isOpen} isMobile>
           <NavBarContainer>
-            <NavBar toggleChangeWidth={this.toggleChangeWidth} />
+            <NavBar toggleSideChange={this.toggleSideChange} />
           </NavBarContainer>
 
-          <div className="ui raised segment term-wrapper" >
+          <div className="ui raised segment term-wrapper">
             <SearchTerm>
               {this.displayTerm()}
             </SearchTerm>
@@ -91,7 +111,7 @@ class MainPage extends React.Component {
           </ImageListContainer>
         </ContentsWrapper>
     
-      </div>
+        </WholeWrapper>
     );
   }
 }

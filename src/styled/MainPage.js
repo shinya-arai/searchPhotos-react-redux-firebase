@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+export const WholeWrapper = styled.div`
+  height: 100vh;
+  display: flex;
+`;
+
 export const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;

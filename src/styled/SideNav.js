@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const SideNavContainer = styled.div`
   background-color: #1C1E21;
   width: ${props => props.isOpen ? '15%' : '5%'};
+  width: ${props => props.isMobile && '100%'};
 `;
 
 export const Title = styled.div`
