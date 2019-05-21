@@ -45,7 +45,7 @@ class MainPage extends React.Component {
     this.setState({ photos: response.data, term: '最新の写真' });
   }
 
-  onSearchPhotos = async (term) =>  {
+  onSearchPhotos = async term =>  {
     const response = await unsplash.get('/search/photos', {
       params: {
         query: term,
@@ -61,7 +61,7 @@ class MainPage extends React.Component {
 
   displayTerm = () => {
     if (!this.state.term) {
-      return <>最新の写真</>;
+      return <>Latest Photos</>;
     } else {
       return <>{this.state.term}</>;
     }
@@ -112,7 +112,7 @@ class MainPage extends React.Component {
           </ImageListContainer>
         </ContentsWrapper>
     
-        </WholeWrapper>
+      </WholeWrapper>
     );
   }
 }

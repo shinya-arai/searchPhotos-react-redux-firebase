@@ -4,17 +4,18 @@ import { Grommet } from 'grommet';
 import { grommet } from 'grommet/themes';
 
 import './styles/index.scss';
+
 import history from './history';
 import MainPage from './components/MainPage';
-// import GoogleLogin from './GoogleLogin';
+import GoogleLogin from './components/GoogleLogin';
 import NotFoundPage from './components/Error';
 
 const App = () => {
   return (
       <Switch>
-          <Route path="/" exact component={MainPage} />
-          {/* <Route path="/login" exact component={GoogleLogin} /> */}
-          <Route component={NotFoundPage} />
+        <Route path="/" exact component={MainPage} />
+        <Route path="/login" exact component={GoogleLogin} />
+        <Route component={NotFoundPage} />
       </Switch>
   );
 };
