@@ -5,7 +5,7 @@ import unsplash from '../apis/unsplash';
 
 import AppNavigation from './SideNav';
 import NavBar from './NavBar';
-import ImageList from './Images/ImageList';
+import Images from './Images';
 
 import { 
   NavBarContainer, 
@@ -108,7 +108,7 @@ class MainPage extends React.Component {
           </div>
 
           <ImageListContainer>
-            <ImageList photos={this.state.photos} />
+            <Images photos={this.state.photos} />
           </ImageListContainer>
         </ContentsWrapper>
     
