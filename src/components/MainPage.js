@@ -65,7 +65,7 @@ class MainPage extends React.Component {
         isModalOpen: false,
       });
     } 
-    
+
     else if(response.data.total && isMobile) {
       this.setState({ 
         photos: response.data.results, 

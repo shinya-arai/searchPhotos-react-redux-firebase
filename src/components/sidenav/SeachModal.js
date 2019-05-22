@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Button, Layer, FormField, TextInput } from 'grommet';
 import { FormSearch, Close } from 'grommet-icons';
+import { isTablet } from 'react-device-detect';
 
 class SearchModal extends React.Component {
   state = { term: '' };
@@ -9,6 +10,17 @@ class SearchModal extends React.Component {
     e.preventDefault();
     
     this.props.onSearchPhotos(this.state.term);
+  }
+
+  style() {
+    if(isTablet) {
+      return { 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        backgroundColor: 'oldlace'
+      };
+    }
   }
 
   render() {
@@ -21,6 +33,7 @@ class SearchModal extends React.Component {
         modal 
         onClickOutside={onCloseModal}
         onEsc={onCloseModal}
+        style={this.style()}
       >
         <Box pad="medium" gap="small" width="medium">
           <Box flex={false} direction="row" justify="between" style={{ justifyContent: 'flex-end' }}>

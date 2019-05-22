@@ -12,11 +12,11 @@ import NotFoundPage from './components/Error';
 
 const App = () => {
   return (
-      <Switch>
-        <Route path="/" exact component={MainPage} />
-        <Route path="/login" exact component={GoogleLogin} />
-        <Route component={NotFoundPage} />
-      </Switch>
+    <Switch>
+      <Route path="/" exact component={MainPage} />
+      <Route path="/login" exact component={GoogleLogin} />
+      <Route component={NotFoundPage} />
+    </Switch>
   );
 };
 

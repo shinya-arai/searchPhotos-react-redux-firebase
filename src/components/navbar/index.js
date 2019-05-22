@@ -2,7 +2,7 @@ import React from 'react';
 import { alignRight } from 'react-icons-kit/fa/alignRight'
 import { Icon } from 'react-icons-kit';
 import { Dropdown } from 'semantic-ui-react';
-import { isMobile } from 'react-device-detect';
+import { isMobile, isTablet } from 'react-device-detect';
 
 import { IconWrapper } from '../../styled/NavBar';
 
@@ -14,7 +14,7 @@ class NavBar extends React.Component {
   render() {
     return (
       <div className="ui secondary pointing menu navbar-wrapper">
-        <IconWrapper onClick={this.toggleSideChange} isMobile={isMobile}>
+        <IconWrapper onClick={this.toggleSideChange} isMobile={isMobile} isTablet={isTablet}>
           <Icon size={40} icon={alignRight} className="icon" />
         </IconWrapper>
         <div className="ui right item drop-wrapp">
