@@ -17,12 +17,12 @@ class Menu extends React.Component {
     this.props.onItemSelection(arg);
   }
 
-  onModalOpen = () => {
-    this.props.onModalOpen();
+  onOpenModal = () => {
+    this.props.onOpenModal();
   }
 
-  onModalClose = () => {
-    this.props.onModalClose();
+  onCloseModal = () => {
+    this.props.onCloseModal();
   }
 
   onCloseMobileSide = () => {
@@ -72,7 +72,7 @@ class Menu extends React.Component {
             <Nav 
               id={"search"} 
               style={!isOpen && {justifyContent: 'center'}}
-              onClick={this.onModalOpen} 
+              onClick={this.onOpenModal} 
               className='nav-item'
             >
               <NavIcon>
@@ -90,7 +90,7 @@ class Menu extends React.Component {
 
         {isModalOpen && (
           <SearchModal 
-            onModalClose={this.onModalClose} 
+            onCloseModal={this.onCloseModal} 
             onSearchPhotos={onSearchPhotos}
             isPhotos={isPhotos}
           />

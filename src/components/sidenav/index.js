@@ -5,18 +5,18 @@ import { Layer } from 'grommet';
 import Menu from './Menu';
 
 class AppNavigation extends React.Component {
-  state = { selectedPath: '', isModalOpen: false };
+  state = { selectedPath: '' };
 
   onItemSelection = (arg) => {
     this.setState({ selectedPath: arg.path });
   }
 
-  onModalOpen = () => {
-    this.setState({ isModalOpen: true });
+  onOpenModal = () => {
+    this.props.onOpenModal();
   }
 
-  onModalClose = () => {
-    this.setState({ isModalOpen: false });
+  onCloseModal = () => {
+    this.props.onCloseModal();
   }
 
   onCloseMobileSide = () => {
@@ -26,14 +26,14 @@ class AppNavigation extends React.Component {
   displayMenu = () => {
     return (
       <Menu 
-        isModalOpen={this.state.isModalOpen} 
+        isModalOpen={this.props.isModalOpen}
         selectedPath={this.state.selectedPath}
         onSearchPhotos={this.props.onSearchPhotos}
         isPhotos={this.props.isPhotos}
         isOpen={this.props.isOpen}
         onClickHome={this.props.onClickHome}
-        onModalOpen={this.onModalOpen}
-        onModalClose={this.onModalClose}
+        onOpenModal={this.onOpenModal}
+        onCloseModal={this.onCloseModal}
         onItemSelection={this.onItemSelection}
         onCloseMobileSide={this.onCloseMobileSide}
       />
