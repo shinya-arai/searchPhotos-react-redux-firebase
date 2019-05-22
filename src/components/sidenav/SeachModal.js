@@ -7,31 +7,24 @@ class SearchModal extends React.Component {
 
   onSearchPhotos = (e) => {
     e.preventDefault();
+    
     this.props.onSearchPhotos(this.state.term);
-
-
-    // if(!this.props.isPhotos) {
-    //   console.log(false);
-    // } else {
-    //   this.props.onClose();
-    //   console.log(true);
-    // }
   }
 
   render() {
-    const { onModalClose, isPhotos } = this.props;
+    const { onCloseModal, isPhotos } = this.props;
     const { term } = this.state;
 
     return (
       <Layer 
         position="center" 
         modal 
-        onClickOutside={onModalClose}
-        onEsc={onModalClose}
+        onClickOutside={onCloseModal}
+        onEsc={onCloseModal}
       >
         <Box pad="medium" gap="small" width="medium">
           <Box flex={false} direction="row" justify="between" style={{ justifyContent: 'flex-end' }}>
-            <Button icon={<Close />} onClick={onModalClose} />
+            <Button icon={<Close />} onClick={onCloseModal} />
           </Box>
           <Box
             as="form"
@@ -50,10 +43,10 @@ class SearchModal extends React.Component {
                 />
               </FormField>
             </Box>
-            { !isPhotos && (
+            {!isPhotos && (
               <div className="ui error message">
                 検索されたキーワードでは写真が存在しませんでした。<br />
-                また、日本語では検索できないので英単語で調べてください。
+                また、漢字、カタカナでは検索できないので英単語、ローマ字で検索してください。
               </div>
             )}
           </Box>

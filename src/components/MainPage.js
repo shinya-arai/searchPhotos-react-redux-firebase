@@ -20,9 +20,10 @@ class MainPage extends React.Component {
   state = { 
     photos: [],
     term: '', 
-    isPhotos: null, 
-    isOpen: true, 
+    isPhotos: null,
+    isOpen: true,
     isMobileSideOpen: false,
+    isModalOpen: false,
   };
 
   async componentDidMount() {
@@ -42,7 +43,7 @@ class MainPage extends React.Component {
       }
     });
 
-    this.setState({ photos: response.data, term: '最新の写真' });
+    this.setState({ photos: response.data, term: 'Latest Photos' });
   }
 
   onSearchPhotos = async term =>  {
@@ -54,9 +55,26 @@ class MainPage extends React.Component {
 
     if(!response.data.total) {
       this.setState({ isPhotos: false });
-    } else {
-      this.setState({ photos: response.data.results, term: term, isPhotos: true });
-    }
+    } 
+
+    else if(response.data.total && isBrowser) {
+      this.setState({ 
+        photos: response.data.results, 
+        term: term, 
+        isPhotos: true, 
+        isModalOpen: false,
+      });
+    } 
+    
+    else if(response.data.total && isMobile) {
+      this.setState({ 
+        photos: response.data.results, 
+        term: term, 
+        isPhotos: true, 
+        isModalOpen: false, 
+        isMobileSideOpen: false,
+      });
+    }    
   }
 
   displayTerm = () => {
@@ -81,8 +99,16 @@ class MainPage extends React.Component {
     this.setState({ isMobileSideOpen: false });
   }
 
+  onCloseModal = () => {
+    this.setState({ isModalOpen: false });
+  }
+
+  onOpenModal = () => {
+    this.setState({ isModalOpen: true });
+  }
+
   render() {
-    const { isOpen, isMobileSideOpen } = this.state;
+    const { isOpen, isMobileSideOpen, isModalOpen } = this.state;
 
     return (
       <WholeWrapper>
@@ -94,6 +120,9 @@ class MainPage extends React.Component {
           onClickHome={this.onClickHome}
           isMobileSideOpen={isMobileSideOpen}
           onCloseMobileSide={this.onCloseMobileSide}
+          isModalOpen={isModalOpen}
+          onCloseModal={this.onCloseModal}
+          onOpenModal={this.onOpenModal}
         />
 
         <ContentsWrapper isOpen={isOpen} isMobile>
