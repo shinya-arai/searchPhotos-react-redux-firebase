@@ -81,9 +81,6 @@ class Menu extends React.Component {
               {isOpen && (
                 <Text>検索</Text>
               )}
-              {/* <Nav>
-                aa
-              </Nav> */}
             </Nav>
           </SideNav>
         </div>

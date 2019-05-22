@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const IconWrapper = styled.div`
   width: 8%;
   width: ${props => props.isMobile && '20%'};
+  width: ${props => props.isTablet && '10%'};
   height: 5rem;
   display: flex;
   justify-content: center;

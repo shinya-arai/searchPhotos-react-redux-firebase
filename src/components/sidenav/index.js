@@ -1,5 +1,5 @@
 import React from 'react';
-import { isMobile, isBrowser } from 'react-device-detect';
+import { isMobile, isBrowser, isTablet } from 'react-device-detect';
 import { Layer } from 'grommet';
 
 import Menu from './Menu';
@@ -40,6 +40,12 @@ class AppNavigation extends React.Component {
     );
   }
 
+  style() {
+    if(isTablet) {
+      return { width: '30%' };
+    }
+  }
+
   render() {
     const { isMobileSideOpen } = this.props;
 
@@ -56,6 +62,7 @@ class AppNavigation extends React.Component {
           full='vertical'
           modal
           onEsc={this.onCloseMobileSide}
+          style={this.style()}
         >
           {this.displayMenu()}
         </Layer>
