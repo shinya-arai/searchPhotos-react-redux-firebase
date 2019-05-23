@@ -7,7 +7,7 @@ import Menu from './Menu';
 class AppNavigation extends React.Component {
   state = { selectedPath: '' };
 
-  onItemSelection = (arg) => {
+  onItemSelection = arg => {
     this.setState({ selectedPath: arg.path });
   }
 
