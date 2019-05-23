@@ -10,11 +10,30 @@ import { search } from 'react-icons-kit/fa/search';
 
 import SearchModal from './SeachModal';
 
-import { SideNavContainer, theme, Text, Title } from '../../styled/SideNav';
+import { 
+  SideNavContainer, 
+  theme, 
+  HomeText, 
+  SearchText, 
+  Title 
+} from '../../styled/SideNav';
 
 class Menu extends React.Component {
-  onItemSelection = (arg) => {
+  state = { selectedHome: true, selectedSearch: false };
+
+  onItemSelection = arg => {
     this.props.onItemSelection(arg);
+    
+    switch(arg.path) {
+      case 'home':
+        this.setState({ selectedHome: true, selectedSearch: false });
+        break;
+      case 'search':
+        this.setState({ selectedSearch: true, selectedHome: false });
+        break;
+      default:
+        return null;
+    }
   }
 
   onOpenModal = () => {
@@ -39,6 +58,8 @@ class Menu extends React.Component {
       isPhotos,
     } = this.props;
 
+    const { selectedHome, selectedSearch } = this.state;
+
     return (
       <SideNavContainer isOpen={isOpen} isMobile={isMobile}>
         {isMobile && (
@@ -48,7 +69,7 @@ class Menu extends React.Component {
             onClick={this.onCloseMobileSide}
           />
         )}
-        <Title>Title</Title>
+        <Title style={{ color: 'ghostwhite' }}>Title</Title>
         <div style={{ height: 0 }}>
           <SideNav
             theme={theme} 
@@ -66,7 +87,7 @@ class Menu extends React.Component {
                 <Icon size={25} icon={home} />
               </NavIcon>
               {isOpen && (
-                <Text>ホーム</Text>
+                <HomeText selected={selectedSearch}>ホーム</HomeText>
               )}
             </Nav>
             <Nav 
@@ -79,7 +100,7 @@ class Menu extends React.Component {
                 <Icon size={25} icon={search} />
               </NavIcon>
               {isOpen && (
-                <Text>検索</Text>
+                <SearchText selected={selectedHome}>検索</SearchText>
               )}
             </Nav>
           </SideNav>

@@ -19,6 +19,12 @@ export const theme = {
   selectionIconColor: '#03A9F4',
 };
 
-export const Text = styled.div`
+export const HomeText = styled.div`
   padding-left: 8px;
+  color: ${props => props.selected && 'ghostwhite'}
+`;
+
+export const SearchText = styled.div`
+  padding-left: 8px;
+  color: ${props => props.selected && 'ghostwhite'}
 `;

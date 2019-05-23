@@ -6,7 +6,7 @@ import { isTablet } from 'react-device-detect';
 class SearchModal extends React.Component {
   state = { term: '' };
 
-  onSearchPhotos = (e) => {
+  onSearchPhotos = e => {
     e.preventDefault();
     
     this.props.onSearchPhotos(this.state.term);

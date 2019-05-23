@@ -1,6 +1,9 @@
 import React from 'react';
 import firebase from '../../firebase';
 
+import { connect } from 'react-redux';
+import { login, logout } from '../../actions';
+
 class GoogleLogin extends React.Component {
   state = {
     user: null
@@ -21,21 +24,42 @@ class GoogleLogin extends React.Component {
     firebase.auth().signOut()
   }
 
+  reduxLogin = () => {
+    const { login, history } = this.props;
+
+    login();
+    history.push('/');
+  }
+
   render() {
     return (
-      <div>
-        <p>
-          UID: { this.state.user && this.state.user.id }
-        </p>
+      <>
+        <div>
+          <p>
+            UID: { this.state.user && this.state.user.id }
+          </p>
 
-        {this.state.user ? (
-          <button onClick={this.logout}>Google Logout</button>
-        ) : (
-          <button onClick={this.login}>Google Login</button>
-        )}
-      </div>
+          {this.state.user ? (
+            <button onClick={this.logout}>Google Logout</button>
+          ) : (
+            <button onClick={this.login}>Google Login</button>
+          )}
+        </div>
+
+        <div>
+          <button onClick={this.reduxLogin}>login redux</button>
+          <button onClick={this.props.logout}>logout redux</button>
+          {this.props.user ? <div>login!!</div> : <div>logout!!</div>}
+        </div>
+      </>
     );
   }
 }
 
-export default GoogleLogin;
+const mapStateToProps = state => {
+  return {
+    user: state.auth.user
+  }
+}
+
+export default connect(mapStateToProps, { login, logout })(GoogleLogin);
