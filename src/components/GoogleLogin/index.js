@@ -1,5 +1,6 @@
 import React from 'react';
 import firebase from '../../firebase';
+import history from '../../history';
 
 import { connect } from 'react-redux';
 import { login, logout } from '../../actions';
@@ -13,6 +14,10 @@ class GoogleLogin extends React.Component {
     firebase.auth().onAuthStateChanged(user => {
       this.setState({ user })
     })
+
+    if(this.state.user) {
+      history.push('/');
+    }
   }
 
   login() {
@@ -35,9 +40,9 @@ class GoogleLogin extends React.Component {
     return (
       <>
         <div>
-          <p>
-            UID: { this.state.user && this.state.user.id }
-          </p>
+          {this.state.user && (
+            <p>{this.state.user.displayName}</p>
+          )}
 
           {this.state.user ? (
             <button onClick={this.logout}>Google Logout</button>
