@@ -1,7 +1,9 @@
 import React from 'react';
 import { ImageWrapper } from '../../styled/Images';
 
-const Images = ({ photos }) => {  
+const Images = props => {  
+  const { photos } = props;
+
   return photos.map(({ id, urls, description }) => {
     return (
       <ImageWrapper key={id}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Nav, SideNav, NavIcon } from 'react-sidenav';
-import { isMobile } from 'react-device-detect';
+import { isMobile, isBrowser } from 'react-device-detect';
 import { Button } from 'grommet';
 import { Close } from 'grommet-icons';
 
@@ -87,7 +87,7 @@ class Menu extends React.Component {
                 <Icon size={25} icon={home} />
               </NavIcon>
               {isOpen && (
-                <HomeText selected={selectedSearch}>ホーム</HomeText>
+                <HomeText isBrowser={isBrowser} selected={selectedSearch}>ホーム</HomeText>
               )}
             </Nav>
             <Nav 
@@ -100,7 +100,7 @@ class Menu extends React.Component {
                 <Icon size={25} icon={search} />
               </NavIcon>
               {isOpen && (
-                <SearchText selected={selectedHome}>検索</SearchText>
+                <SearchText isBrowser={isBrowser} selected={selectedHome}>検索</SearchText>
               )}
             </Nav>
           </SideNav>
