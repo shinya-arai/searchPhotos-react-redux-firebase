@@ -1,13 +1,14 @@
 const initialState = {
-  user: false
+  user: null,
 }
 
 export default (state = initialState, action) => {
   switch(action.type) {
-    case 'LOG_IN':
-      return { ...state, user: true };
-    case 'LOG_OUT':
-      return { ...state, user: false };
+    case 'FETCH_USER':
+      return {
+        ...state,
+        user: action.payload
+      };
     default:
       return state;
   }

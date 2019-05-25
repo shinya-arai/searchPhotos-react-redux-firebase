@@ -1,62 +1,43 @@
 import React from 'react';
 import firebase from '../../firebase';
-import history from '../../history';
+// import history from '../../history';
+import { fetchUser } from '../../actions';
 
 import { connect } from 'react-redux';
-import { login, logout } from '../../actions';
+
+import { Icon } from 'react-icons-kit'
+import { google } from 'react-icons-kit/icomoon/google'
+
+import { GoogleLoginContainer, GoogleLoginButton } from '../../styled/GoogleLogin';
 
 class GoogleLogin extends React.Component {
-  state = {
-    user: null
-  }
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged(user => {
-      this.setState({ user })
-    })
-
-    if(this.state.user) {
-      history.push('/');
-    }
+    this.props.fetchUser();
   }
 
-  login() {
+  signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider()
     firebase.auth().signInWithRedirect(provider)
   }
 
-  logout() {
+  signOutFromGoogle() {
     firebase.auth().signOut()
-  }
-
-  reduxLogin = () => {
-    const { login, history } = this.props;
-
-    login();
-    history.push('/');
   }
 
   render() {
     return (
-      <>
-        <div>
-          {this.state.user && (
-            <p>{this.state.user.displayName}</p>
-          )}
-
-          {this.state.user ? (
-            <button onClick={this.logout}>Google Logout</button>
-          ) : (
-            <button onClick={this.login}>Google Login</button>
-          )}
+      <GoogleLoginContainer>
+        <div style={{ marginBottom: '3rem', fontWeight: 'bold' }}>
+          利用するにはGoogleでサインインしてください
         </div>
-
-        <div>
-          <button onClick={this.reduxLogin}>login redux</button>
-          <button onClick={this.props.logout}>logout redux</button>
-          {this.props.user ? <div>login!!</div> : <div>logout!!</div>}
-        </div>
-      </>
+        <GoogleLoginButton className="ui raise segment">
+          <div style={{ width: '16%' }}>
+            <Icon size={20} icon={google} />
+          </div>
+          Sign In With Google
+        </GoogleLoginButton>
+      </GoogleLoginContainer>
     );
   }
 }
@@ -67,4 +48,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { login, logout })(GoogleLogin);
+export default connect(mapStateToProps, { fetchUser })(GoogleLogin);
