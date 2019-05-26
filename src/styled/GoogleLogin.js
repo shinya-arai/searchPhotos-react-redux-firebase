@@ -9,7 +9,9 @@ export const GoogleLoginContainer = styled.div`
 `;
 
 export const GoogleLoginButton = styled.div`
-  width: 26%;
+  width: ${props => props.isBrowser && '26%'};
+  width: ${props => props.isMobile && '80%'};
+  width: ${props => props.isTablet && '36%'};
   box-shadow: 0 0 6px gray !important;
   font-weight: bold !important;
   font-size: large !important;

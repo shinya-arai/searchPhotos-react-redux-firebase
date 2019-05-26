@@ -1,9 +1,10 @@
 import React from 'react';
 import firebase from '../../firebase';
-// import history from '../../history';
-import { fetchUser } from '../../actions';
 
+import { fetchUser } from '../../actions';
 import { connect } from 'react-redux';
+
+import { isBrowser, isMobile, isTablet } from 'react-device-detect';
 
 import { Icon } from 'react-icons-kit'
 import { google } from 'react-icons-kit/icomoon/google'
@@ -21,17 +22,33 @@ class GoogleLogin extends React.Component {
     firebase.auth().signInWithRedirect(provider)
   }
 
-  signOutFromGoogle() {
-    firebase.auth().signOut()
+  text() {
+    if(isTablet) {
+      return <p>利用するにはGoogleでサインインしてください</p>;
+    }
+
+    else if(isMobile) {
+      return <p>利用するにはGoogleで<br />サインインしてください</p>;
+    }
+
+    return (
+      <p>利用するにはGoogleでサインインしてください</p>
+    );
   }
 
   render() {
     return (
       <GoogleLoginContainer>
         <div style={{ marginBottom: '3rem', fontWeight: 'bold' }}>
-          利用するにはGoogleでサインインしてください
+          {this.text()}
         </div>
-        <GoogleLoginButton className="ui raise segment">
+        <GoogleLoginButton 
+          isBrowser={isBrowser} 
+          isMobile={isMobile} 
+          isTablet={isTablet}
+          className="ui raise segment"
+          onClick={this.signInWithGoogle}
+        >
           <div style={{ width: '16%' }}>
             <Icon size={20} icon={google} />
           </div>
