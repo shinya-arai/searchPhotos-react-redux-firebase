@@ -1,4 +1,8 @@
 import React from 'react';
+
+import { connect } from 'react-redux';
+import { mobileSideFalse } from '../../actions'; 
+
 import { isMobile, isBrowser, isTablet } from 'react-device-detect';
 import { Layer } from 'grommet';
 
@@ -11,31 +15,14 @@ class AppNavigation extends React.Component {
     this.setState({ selectedPath: arg.path });
   }
 
-  onOpenModal = () => {
-    this.props.onOpenModal();
-  }
-
-  onCloseModal = () => {
-    this.props.onCloseModal();
-  }
-
-  onCloseMobileSide = () => {
-    this.props.onCloseMobileSide();
-  }
-
   displayMenu = () => {
     return (
       <Menu 
-        isModalOpen={this.props.isModalOpen}
         selectedPath={this.state.selectedPath}
         onSearchPhotos={this.props.onSearchPhotos}
         isPhotos={this.props.isPhotos}
-        isOpen={this.props.isOpen}
         onClickHome={this.props.onClickHome}
-        onOpenModal={this.onOpenModal}
-        onCloseModal={this.onCloseModal}
         onItemSelection={this.onItemSelection}
-        onCloseMobileSide={this.onCloseMobileSide}
       />
     );
   }
@@ -47,7 +34,7 @@ class AppNavigation extends React.Component {
   }
 
   render() {
-    const { isMobileSideOpen } = this.props;
+    const { mobile, mobileSideFalse } = this.props;
 
     if(isBrowser) {
       return (
@@ -55,13 +42,13 @@ class AppNavigation extends React.Component {
       );
     }
 
-    if(isMobile && isMobileSideOpen) {
+    if(isMobile && mobile) {
       return (
         <Layer
           position='left'
           full='vertical'
           modal
-          onEsc={this.onCloseMobileSide}
+          onEsc={() => mobileSideFalse()}
           style={this.style()}
         >
           {this.displayMenu()}
@@ -75,4 +62,10 @@ class AppNavigation extends React.Component {
   } 
 };
 
-export default AppNavigation;
+const mapStateToProps = state => {
+  return {
+    mobile: state.mobile.isOpen
+  }
+}
+
+export default connect(mapStateToProps, { mobileSideFalse })(AppNavigation);
