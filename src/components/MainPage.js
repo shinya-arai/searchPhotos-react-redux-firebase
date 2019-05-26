@@ -1,4 +1,8 @@
 import React from 'react';
+
+import { connect } from 'react-redux';
+import { mobileSideFalse, changeModal } from '../actions';
+
 import { isMobile, isBrowser } from 'react-device-detect';
 
 import unsplash from '../apis/unsplash';
@@ -21,9 +25,6 @@ class MainPage extends React.Component {
     photos: [],
     term: '', 
     isPhotos: null,
-    isOpen: true,
-    isMobileSideOpen: false,
-    isModalOpen: false,
   };
 
   async componentDidMount() {
@@ -62,8 +63,9 @@ class MainPage extends React.Component {
         photos: response.data.results, 
         term: term, 
         isPhotos: true, 
-        isModalOpen: false,
       });
+
+      this.props.changeModal();
     } 
 
     else if(response.data.total && isMobile) {
@@ -71,9 +73,10 @@ class MainPage extends React.Component {
         photos: response.data.results, 
         term: term, 
         isPhotos: true, 
-        isModalOpen: false, 
-        isMobileSideOpen: false,
       });
+
+      this.props.changeModal();
+      this.props.mobileSideFalse();
     }    
   }
 
@@ -85,65 +88,39 @@ class MainPage extends React.Component {
     }
   };
 
-  toggleSideChange = () => {
-    if(isMobile) {
-      this.setState({ isMobileSideOpen: !this.state.isMobileSideOpen });
-    }
-
-    if(isBrowser) {
-      this.setState({ isOpen: !this.state.isOpen });
-    }
-  }
-
-  onCloseMobileSide = () => {
-    this.setState({ isMobileSideOpen: false });
-  }
-
-  onCloseModal = () => {
-    this.setState({ isModalOpen: false });
-  }
-
-  onOpenModal = () => {
-    this.setState({ isModalOpen: true });
-  }
-
   render() {
-    const { isOpen, isMobileSideOpen, isModalOpen } = this.state;
+    const { isPhotos, photos } = this.state;
+    const { web } = this.props;
 
     return (
       <WholeWrapper>
-        
         <AppNavigation 
           onSearchPhotos={this.onSearchPhotos} 
-          isPhotos={this.state.isPhotos}
-          isOpen={isOpen}
+          isPhotos={isPhotos}
           onClickHome={this.onClickHome}
-          isMobileSideOpen={isMobileSideOpen}
-          onCloseMobileSide={this.onCloseMobileSide}
-          isModalOpen={isModalOpen}
-          onCloseModal={this.onCloseModal}
-          onOpenModal={this.onOpenModal}
         />
-
-        <ContentsWrapper isOpen={isOpen} isMobile>
+        <ContentsWrapper isOpen={web} isMobile>
           <NavBarContainer>
-            <NavBar toggleSideChange={this.toggleSideChange} />
+            <NavBar />
           </NavBarContainer>
-
           <div className="ui raised segment term-wrapper">
             <SearchTerm>
               {this.displayTerm()}
             </SearchTerm>
           </div>
-
           <ImageListContainer>
-            <Images photos={this.state.photos} />
+            <Images photos={photos} />
           </ImageListContainer>
         </ContentsWrapper>
-    
       </WholeWrapper>
     );
   }
 }
 
-export default MainPage;
+const mapStateToProps = state => {
+  return {
+    web: state.web.isOpen
+  };
+}
+
+export default connect(mapStateToProps, { mobileSideFalse, changeModal })(MainPage);

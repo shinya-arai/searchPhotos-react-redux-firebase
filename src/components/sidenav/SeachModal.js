@@ -1,4 +1,8 @@
 import React from 'react';
+
+import { connect } from 'react-redux';
+import { changeModal } from '../../actions';
+
 import { Box, Button, Layer, FormField, TextInput } from 'grommet';
 import { FormSearch, Close } from 'grommet-icons';
 import { isTablet } from 'react-device-detect';
@@ -24,20 +28,20 @@ class SearchModal extends React.Component {
   }
 
   render() {
-    const { onCloseModal, isPhotos } = this.props;
+    const { isPhotos, changeModal } = this.props;
     const { term } = this.state;
 
     return (
       <Layer 
         position="center" 
         modal 
-        onClickOutside={onCloseModal}
-        onEsc={onCloseModal}
+        onClickOutside={() => changeModal()}
+        onEsc={() => changeModal()}
         style={this.style()}
       >
         <Box pad="medium" gap="small" width="medium">
           <Box flex={false} direction="row" justify="between" style={{ justifyContent: 'flex-end' }}>
-            <Button icon={<Close />} onClick={onCloseModal} />
+            <Button icon={<Close />} onClick={() => changeModal()} />
           </Box>
           <Box
             as="form"
@@ -79,4 +83,4 @@ class SearchModal extends React.Component {
   }
 };
 
-export default SearchModal;
+export default connect(null, { changeModal })(SearchModal);

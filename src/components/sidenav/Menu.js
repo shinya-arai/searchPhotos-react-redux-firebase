@@ -1,4 +1,8 @@
 import React from 'react';
+
+import { connect } from 'react-redux';
+import { mobileSideFalse, changeModal } from '../../actions';
+
 import { Nav, SideNav, NavIcon } from 'react-sidenav';
 import { isMobile, isBrowser } from 'react-device-detect';
 import { Button } from 'grommet';
@@ -36,37 +40,27 @@ class Menu extends React.Component {
     }
   }
 
-  onOpenModal = () => {
-    this.props.onOpenModal();
-  }
-
-  onCloseModal = () => {
-    this.props.onCloseModal();
-  }
-
-  onCloseMobileSide = () => {
-    this.props.onCloseMobileSide();
-  }
-
   render() {
     const {
-      isOpen,
       onSearchPhotos,
       onClickHome,
       selectedPath,
-      isModalOpen,
       isPhotos,
+      web,
+      mobileSideFalse,
+      changeModal,
+      modal
     } = this.props;
 
     const { selectedHome, selectedSearch } = this.state;
 
     return (
-      <SideNavContainer isOpen={isOpen} isMobile={isMobile}>
+      <SideNavContainer isOpen={web} isMobile={isMobile}>
         {isMobile && (
           <Button 
             className="btn-close" 
             icon={<Close size='large' />}
-            onClick={this.onCloseMobileSide}
+            onClick={() => mobileSideFalse()}
           />
         )}
         <Title style={{ color: 'ghostwhite' }}>Title</Title>
@@ -79,36 +73,36 @@ class Menu extends React.Component {
           >
             <Nav 
               id={"home"}
-              style={!isOpen && {justifyContent: 'center'}}
+              style={!web && {justifyContent: 'center'}}
               onClick={onClickHome}
               className='nav-item'
             >
               <NavIcon>
                 <Icon size={25} icon={home} />
               </NavIcon>
-              {isOpen && (
+              {web && (
                 <HomeText isBrowser={isBrowser} selected={selectedSearch}>ホーム</HomeText>
               )}
             </Nav>
             <Nav 
               id={"search"} 
-              style={!isOpen && {justifyContent: 'center'}}
-              onClick={this.onOpenModal} 
+              style={!web && {justifyContent: 'center'}}
+              onClick={() => changeModal()} 
               className='nav-item'
             >
               <NavIcon>
                 <Icon size={25} icon={search} />
               </NavIcon>
-              {isOpen && (
+              {web && (
                 <SearchText isBrowser={isBrowser} selected={selectedHome}>検索</SearchText>
               )}
             </Nav>
           </SideNav>
         </div>
 
-        {isModalOpen && (
+        {modal && (
           <SearchModal 
-            onCloseModal={this.onCloseModal} 
+            onCloseModal={() => changeModal()} 
             onSearchPhotos={onSearchPhotos}
             isPhotos={isPhotos}
           />
@@ -119,4 +113,11 @@ class Menu extends React.Component {
   }
 }
 
-export default Menu;
+const mapStateToProps = state => {
+  return {
+    web: state.web.isOpen,
+    modal: state.modal.isOpen
+  }
+}
+
+export default connect(mapStateToProps, { mobileSideFalse, changeModal })(Menu);

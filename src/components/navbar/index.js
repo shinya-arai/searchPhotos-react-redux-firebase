@@ -4,13 +4,13 @@ import firebase from '../../firebase';
 import history from '../../history';
 
 import { connect } from 'react-redux';
-import { fetchUser } from '../../actions';
+import { fetchUser, changeMobileSide, changeWebSide } from '../../actions';
 
 import { alignRight } from 'react-icons-kit/fa/alignRight'
 import { Icon } from 'react-icons-kit';
 
 import { Dropdown } from 'semantic-ui-react';
-import { isMobile, isTablet } from 'react-device-detect';
+import { isMobile, isTablet, isBrowser } from 'react-device-detect';
 
 import { IconWrapper } from '../../styled/NavBar';
 
@@ -21,7 +21,13 @@ class NavBar extends React.Component {
   }
   
   toggleSideChange = () => {
-    this.props.toggleSideChange()
+    if(isMobile) {
+      this.props.changeMobileSide();    
+    }
+    
+    if(isBrowser) {
+      this.props.changeWebSide();
+    }
   }
 
   text = () => {
@@ -64,4 +70,7 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { fetchUser })(NavBar);
+export default connect(
+  mapStateToProps, 
+  { fetchUser, changeMobileSide, changeWebSide }
+)(NavBar);
