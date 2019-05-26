@@ -1,4 +1,8 @@
 import React from 'react';
+
+import firebase from '../../firebase';
+import history from '../../history';
+
 import { connect } from 'react-redux';
 import { fetchUser } from '../../actions';
 
@@ -26,8 +30,14 @@ class NavBar extends React.Component {
     }
 
     return (
-      `ようこそ！ ${this.props.user.displayName} さん`
+      `${this.props.user.displayName} さん`
     );
+  }
+
+  signOutFromGoogle() {
+    firebase.auth().signOut();
+
+    history.push('/login');
   }
 
   render() {
@@ -39,7 +49,7 @@ class NavBar extends React.Component {
         <div className="ui right item drop-wrapp">
           <Dropdown className="drop-contents" text={this.text()}>
             <Dropdown.Menu>
-              <Dropdown.Item onClick={() => console.log('a')} text="ログアウト" />
+              <Dropdown.Item onClick={this.signOutFromGoogle} text="ログアウト" />
             </Dropdown.Menu>
           </Dropdown>
         </div>

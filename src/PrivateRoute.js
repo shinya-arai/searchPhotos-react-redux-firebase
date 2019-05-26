@@ -1,5 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
+
+import firebase from './firebase';
+
 import { Route, Redirect } from 'react-router-dom';
 
 const PrivateRoute = ({user, component: Component, ...rest}) => {
@@ -7,7 +9,7 @@ const PrivateRoute = ({user, component: Component, ...rest}) => {
     <Route
       {...rest}
       render={props => 
-        user ? (
+        firebase.auth.currentUser !== null ? (
           <Component {...props} />
         ) : (
           <Redirect to='/login' />
@@ -17,10 +19,4 @@ const PrivateRoute = ({user, component: Component, ...rest}) => {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.auth.user
-  };
-};
-
-export default connect(mapStateToProps)(PrivateRoute);
+export default PrivateRoute;

@@ -1,5 +1,4 @@
 import firebase from '../firebase';
-// import history from '../history';
 
 export const fetchUser = () => async (dispatch, getState) => {
   await firebase.auth().onAuthStateChanged(user => {
@@ -7,6 +6,5 @@ export const fetchUser = () => async (dispatch, getState) => {
       type: 'FETCH_USER',
       payload: user
     })
-    console.log(user);
   });
 }
