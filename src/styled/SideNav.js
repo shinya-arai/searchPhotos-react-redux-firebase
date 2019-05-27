@@ -11,6 +11,7 @@ export const Title = styled.div`
   justify-content: center;
   align-items: center;
   height: 10rem;
+  color: ghostwhite;
 `;
 
 export const theme = {
