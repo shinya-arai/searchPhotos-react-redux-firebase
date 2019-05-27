@@ -4,7 +4,7 @@ import firebase from '../../firebase';
 import history from '../../history';
 
 import { connect } from 'react-redux';
-import { fetchUser, changeMobileSide, changeWebSide } from '../../actions';
+import { fetchUser, changeMobile, changeWeb } from '../../actions';
 
 import { alignRight } from 'react-icons-kit/fa/alignRight'
 import { Icon } from 'react-icons-kit';
@@ -22,11 +22,11 @@ class NavBar extends React.Component {
   
   toggleSideChange = () => {
     if(isMobile) {
-      this.props.changeMobileSide();    
+      this.props.changeMobile();    
     }
     
     if(isBrowser) {
-      this.props.changeWebSide();
+      this.props.changeWeb();
     }
   }
 
@@ -40,8 +40,8 @@ class NavBar extends React.Component {
     );
   }
 
-  signOutFromGoogle() {
-    firebase.auth().signOut();
+  async signOutFromGoogle() {
+    await firebase.auth().signOut();
 
     history.push('/login');
   }
@@ -72,5 +72,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps, 
-  { fetchUser, changeMobileSide, changeWebSide }
+  { fetchUser, changeMobile, changeWeb }
 )(NavBar);

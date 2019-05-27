@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { mobileSideFalse } from '../../actions'; 
+import { changeMobileFalse } from '../../actions'; 
 
 import { isMobile, isBrowser, isTablet } from 'react-device-detect';
 import { Layer } from 'grommet';
@@ -34,7 +34,7 @@ class AppNavigation extends React.Component {
   }
 
   render() {
-    const { mobile, mobileSideFalse } = this.props;
+    const { mobile, changeMobileFalse } = this.props;
 
     if(isBrowser) {
       return (
@@ -48,7 +48,7 @@ class AppNavigation extends React.Component {
           position='left'
           full='vertical'
           modal
-          onEsc={() => mobileSideFalse()}
+          onEsc={() => changeMobileFalse()}
           style={this.style()}
         >
           {this.displayMenu()}
@@ -64,8 +64,8 @@ class AppNavigation extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    mobile: state.mobile.isOpen
+    mobile: state.isOpen.mobile
   }
 }
 
-export default connect(mapStateToProps, { mobileSideFalse })(AppNavigation);
+export default connect(mapStateToProps, { changeMobileFalse })(AppNavigation);

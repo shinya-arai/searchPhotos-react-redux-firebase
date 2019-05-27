@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { mobileSideFalse, changeModal } from '../../actions';
+import { changeMobileFalse, changeModal, changeModalAndWeb } from '../../actions';
 
 import { Nav, SideNav, NavIcon } from 'react-sidenav';
 import { isMobile, isBrowser } from 'react-device-detect';
@@ -40,6 +40,14 @@ class Menu extends React.Component {
     }
   }
 
+  change = () => {
+    if(!this.props.web) {
+      this.props.changeModalAndWeb();
+    } else {
+      this.props.changeModal();
+    }
+  }
+
   render() {
     const {
       onSearchPhotos,
@@ -47,9 +55,9 @@ class Menu extends React.Component {
       selectedPath,
       isPhotos,
       web,
-      mobileSideFalse,
+      changeMobileFalse,
       changeModal,
-      modal
+      modal,
     } = this.props;
 
     const { selectedHome, selectedSearch } = this.state;
@@ -60,10 +68,10 @@ class Menu extends React.Component {
           <Button 
             className="btn-close" 
             icon={<Close size='large' />}
-            onClick={() => mobileSideFalse()}
+            onClick={() => changeMobileFalse()}
           />
         )}
-        <Title style={{ color: 'ghostwhite' }}>Title</Title>
+        <Title>{web && <div>made by <br />@ssnyarii</div>}</Title>
         <div style={{ height: 0 }}>
           <SideNav
             theme={theme} 
@@ -87,7 +95,7 @@ class Menu extends React.Component {
             <Nav 
               id={"search"} 
               style={!web && {justifyContent: 'center'}}
-              onClick={() => changeModal()} 
+              onClick={this.change}
               className='nav-item'
             >
               <NavIcon>
@@ -115,9 +123,12 @@ class Menu extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    web: state.web.isOpen,
-    modal: state.modal.isOpen
+    web: state.isOpen.web,
+    modal: state.isOpen.modal
   }
 }
 
-export default connect(mapStateToProps, { mobileSideFalse, changeModal })(Menu);
+export default connect(
+  mapStateToProps,
+  { changeMobileFalse, changeModal, changeModalAndWeb }
+)(Menu);

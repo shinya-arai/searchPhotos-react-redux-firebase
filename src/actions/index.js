@@ -9,26 +9,32 @@ export const fetchUser = () => async (dispatch, getState) => {
   });
 }
 
-export const changeWebSide = () => {
+export const changeWeb = () => {
   return {
-    type: 'CHANGE_WEB_SIDE'
+    type: 'CHANGE_WEB'
   };
 }
 
-export const changeMobileSide = () => {
+export const changeMobile = () => {
   return {
-    type: 'CHANGE_MOBILE_SIDE'
+    type: 'CHANGE_MOBILE'
   };
 }
 
-export const mobileSideFalse = () => {
+export const changeMobileFalse = () => {
   return {
-    type: 'MOBILE_SIDE_FALSE'
+    type: 'CHANGE_MOBILE_FALSE'
   };
 }
 
 export const changeModal = () => {
   return {
     type: 'CHANGE_MODAL'
+  }
+}
+
+export const changeModalAndWeb = () => {
+  return {
+    type: 'CHANGE_MODAL_AND_WEB'
   }
 }

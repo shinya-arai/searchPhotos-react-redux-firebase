@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { mobileSideFalse, changeModal } from '../actions';
+import { changeMobileFalse, changeModal, changeWeb } from '../actions';
 
 import { isMobile, isBrowser } from 'react-device-detect';
 
@@ -44,7 +44,12 @@ class MainPage extends React.Component {
       }
     });
 
+    if(!this.props.web) {
+      this.props.changeWeb();
+    }
+
     this.setState({ photos: response.data, term: 'Latest Photos' });
+    this.props.changeMobileFalse();
   }
 
   onSearchPhotos = async term =>  {
@@ -76,7 +81,7 @@ class MainPage extends React.Component {
       });
 
       this.props.changeModal();
-      this.props.mobileSideFalse();
+      this.props.changeMobileFalse();
     }    
   }
 
@@ -119,8 +124,8 @@ class MainPage extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    web: state.web.isOpen
+    web: state.isOpen.web
   };
 }
 
-export default connect(mapStateToProps, { mobileSideFalse, changeModal })(MainPage);
+export default connect(mapStateToProps, { changeMobileFalse, changeModal, changeWeb })(MainPage);
