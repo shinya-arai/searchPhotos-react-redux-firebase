@@ -17,7 +17,6 @@ class App extends React.Component {
   state = { 
     loading: true, 
     authenticated: false, 
-    user: null,
   };
 
   async componentWillMount() {
@@ -25,13 +24,11 @@ class App extends React.Component {
       if (user) {
         this.setState({
           authenticated: true,
-          user,
           loading: false
         });
       } else {
         this.setState({
           authenticated: false,
-          user,
           loading: false
         });
       }
