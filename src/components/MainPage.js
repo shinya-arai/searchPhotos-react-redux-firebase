@@ -48,8 +48,11 @@ class MainPage extends React.Component {
       this.props.changeWeb();
     }
 
+    if(isMobile) {
+      this.props.changeMobileFalse();
+    }
+
     this.setState({ photos: response.data, term: 'Latest Photos' });
-    this.props.changeMobileFalse();
   }
 
   onSearchPhotos = async term =>  {
