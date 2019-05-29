@@ -18,6 +18,7 @@ class SearchModal extends React.Component {
     if(!this.props.isPhotos) {
       return;
     } else {
+      
       if(isBrowser) {
         this.props.changeModal();
       } 

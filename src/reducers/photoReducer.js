@@ -17,6 +17,7 @@ export default (state = initialState, action) => {
         ...state,
         term: action.payload.term
       }
+      
     case 'SEARCH_PHOTOS':
       return {
         ...state,

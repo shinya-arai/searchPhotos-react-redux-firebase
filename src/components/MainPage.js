@@ -8,6 +8,8 @@ import {
   fetchLatestPhotos 
 } from '../actions';
 
+import InfiniteScroll from 'react-infinite-scroller';
+
 import AppNavigation from './SideNav';
 import NavBar from './NavBar';
 import Images from './Images';
@@ -40,24 +42,34 @@ class MainPage extends React.Component {
 
     return (
       <WholeWrapper>
-
+        
         <AppNavigation />
 
-        <ContentsWrapper isOpen={web} isMobile>
-          <NavBarContainer>
-            <NavBar />
-          </NavBarContainer>
+            <ContentsWrapper isOpen={web} isMobile>
+              <NavBarContainer>
+                <NavBar />
+              </NavBarContainer>
 
-          <div className="ui raised segment term-wrapper">
-            <SearchTerm>
-              {this.displayTerm()}
-            </SearchTerm>
-          </div>
+              <div className="ui raised segment term-wrapper">
+                <SearchTerm>
+                  {this.displayTerm()}
+                </SearchTerm>
+              </div>
 
-          <ImageListContainer>
-            <Images />
-          </ImageListContainer>
-        </ContentsWrapper>
+              <ImageListContainer>
+                <div style={{  }}>
+                  <InfiniteScroll
+                    pageStart={0}
+                    loadMore={() =>console.log('aaa')}
+                    hasMore={true || false}
+                    loader={<div className="loader" key={0}>Loading ...</div>}
+                    useWindow={false}
+                  >
+                    <Images />
+                  </InfiniteScroll>
+                </div>
+              </ImageListContainer>
+            </ContentsWrapper>
 
       </WholeWrapper>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import firebase from '../../firebase';
+import firebase from '../../apis/firebase';
+
 import history from '../../history';
 
 import { connect } from 'react-redux';
@@ -8,7 +9,6 @@ import { fetchUser, changeMobile, changeWeb } from '../../actions';
 
 import { alignRight } from 'react-icons-kit/fa/alignRight'
 import { Icon } from 'react-icons-kit';
-
 import { Dropdown } from 'semantic-ui-react';
 import { isMobile, isTablet, isBrowser } from 'react-device-detect';
 
