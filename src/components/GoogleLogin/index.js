@@ -1,5 +1,6 @@
 import React from 'react';
-import firebase from '../../firebase';
+
+import firebase from '../../apis/firebase';
 
 import { fetchUser } from '../../actions';
 import { connect } from 'react-redux';

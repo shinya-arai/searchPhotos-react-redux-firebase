@@ -6,7 +6,8 @@ import { grommet } from 'grommet/themes';
 import './styles/index.scss';
 
 import history from './history';
-import firebase from './firebase';
+
+import firebase from './apis/firebase';
 
 import Loading from './components/Loading';
 import MainPage from './components/MainPage';

@@ -1,4 +1,4 @@
-import firebase from '../firebase';
+import firebase from '../apis/firebase';
 import unsplash from '../apis/unsplash';
 
 export const fetchUser = () => async dispatch => {
@@ -15,7 +15,8 @@ export const fetchLatestPhotos = () => async (dispatch, getState) => {
 
   const response = await unsplash.get('/photos', {
     params: {
-      order_by: 'latest'
+      order_by: 'latest',
+      per_page: 30,
     }
   });
 
@@ -38,6 +39,7 @@ export const searchPhotos = term => async dispatch => {
   const response = await unsplash.get('/search/photos', {
     params: {
       query: term,
+      per_page: 30,
     }
   });
 

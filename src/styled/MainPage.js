@@ -9,7 +9,7 @@ export const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: ${props => props.isOpen ? '85%' : '95%'};
-  width: ${props => props.isMobile && '100%'}
+  width: ${props => props.isMobile && '100%'};
 `;
 
 export const NavBarContainer = styled.div`

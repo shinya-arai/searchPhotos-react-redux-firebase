@@ -16,7 +16,7 @@ const Images = props => {
           <div className="ui segment photo">
             <img src={urls.regular} alt={description} />
           </div>
-        </div> || <Skeleton count={10} />}
+        </div> || <Skeleton />}
       </ImageWrapper>
     );
   });
