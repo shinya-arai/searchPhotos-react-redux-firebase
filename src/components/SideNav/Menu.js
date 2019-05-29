@@ -1,7 +1,13 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { changeMobileFalse, changeModal, changeModalAndWeb } from '../../actions';
+import { 
+  changeMobileFalse, 
+  changeModal, 
+  changeModalAndWeb, 
+  fetchLatestPhotos,
+  changeWeb
+} from '../../actions';
 
 import { Nav, SideNav, NavIcon } from 'react-sidenav';
 import { isMobile, isBrowser } from 'react-device-detect';
@@ -48,12 +54,21 @@ class Menu extends React.Component {
     }
   }
 
+  onClickHome = () => {
+    this.props.fetchLatestPhotos();
+
+    if(!this.props.web) {
+      this.props.changeWeb();
+    }
+
+    if(isMobile) {
+      this.props.changeMobileFalse();
+    }
+  }
+
   render() {
     const {
-      onSearchPhotos,
-      onClickHome,
       selectedPath,
-      isPhotos,
       web,
       changeMobileFalse,
       changeModal,
@@ -82,7 +97,7 @@ class Menu extends React.Component {
             <Nav 
               id={"home"}
               style={!web && {justifyContent: 'center'}}
-              onClick={onClickHome}
+              onClick={this.onClickHome}
               className='nav-item'
             >
               <NavIcon>
@@ -111,8 +126,6 @@ class Menu extends React.Component {
         {modal && (
           <SearchModal 
             onCloseModal={() => changeModal()} 
-            onSearchPhotos={onSearchPhotos}
-            isPhotos={isPhotos}
           />
         )}
 
@@ -130,5 +143,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { changeMobileFalse, changeModal, changeModalAndWeb }
+  { changeMobileFalse, changeModal, changeModalAndWeb, fetchLatestPhotos, changeWeb }
 )(Menu);

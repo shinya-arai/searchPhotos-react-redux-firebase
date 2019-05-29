@@ -19,9 +19,6 @@ class AppNavigation extends React.Component {
     return (
       <Menu 
         selectedPath={this.state.selectedPath}
-        onSearchPhotos={this.props.onSearchPhotos}
-        isPhotos={this.props.isPhotos}
-        onClickHome={this.props.onClickHome}
         onItemSelection={this.onItemSelection}
       />
     );
