@@ -1,19 +1,32 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { changeModal } from '../../actions';
+import { changeModal, searchPhotos, changeMobileFalse } from '../../actions';
 
 import { Box, Button, Layer, FormField, TextInput } from 'grommet';
 import { FormSearch, Close } from 'grommet-icons';
-import { isTablet } from 'react-device-detect';
+import { isBrowser, isMobile, isTablet } from 'react-device-detect';
 
 class SearchModal extends React.Component {
   state = { term: '' };
 
-  onSearchPhotos = e => {
+  onSearchPhotos = async e => {
     e.preventDefault();
     
-    this.props.onSearchPhotos(this.state.term);
+    await this.props.searchPhotos(this.state.term);
+
+    if(!this.props.isPhotos) {
+      return;
+    } else {
+      if(isBrowser) {
+        this.props.changeModal();
+      } 
+      
+      else if(isMobile) {
+        this.props.changeModal();
+        this.props.changeMobileFalse();
+      }
+    }
   }
 
   style() {
@@ -63,7 +76,8 @@ class SearchModal extends React.Component {
             {!isPhotos && (
               <div className="ui error message">
                 検索されたキーワードでは写真が存在しませんでした。<br />
-                また、漢字、カタカナでは検索できないので英単語、ローマ字で検索してください。
+                漢字、カタカナでは検索できないので英単語、ローマ字で検索してください。<br />
+                また、ひらがなでは思った通りの検索ができません。
               </div>
             )}
           </Box>
@@ -83,4 +97,13 @@ class SearchModal extends React.Component {
   }
 };
 
-export default connect(null, { changeModal })(SearchModal);
+const mapStateToProps = state => {
+  return {
+    isPhotos: state.photo.isPhotos
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { changeModal, searchPhotos, changeMobileFalse }
+)(SearchModal);

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+
 import Skeleton from 'react-loading-skeleton';
 
 import { ImageWrapper } from '../../styled/Images';
@@ -20,4 +22,10 @@ const Images = props => {
   });
 };
 
-export default Images;
+const mapStateToProps = state => {
+  return {
+    photos: state.photo.photos
+  }
+}
+
+export default connect(mapStateToProps)(Images);
