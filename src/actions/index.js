@@ -16,7 +16,7 @@ export const fetchLatestPhotos = () => async (dispatch, getState) => {
   const response = await unsplash.get('/photos', {
     params: {
       order_by: 'latest',
-      per_page: 30,
+      per_page: 20,
     }
   });
 
@@ -35,11 +35,25 @@ export const fetchLatestPhotos = () => async (dispatch, getState) => {
   });
 }
 
+export const addLatestPhotos = () => async dispatch => {
+  const response = await unsplash.get('/photos', {
+    params: {
+      order_by: 'latest',
+      per_page: 20,
+    }
+  });
+
+  dispatch({
+    type: 'ADD_LATEST_PHOTOS',
+    payload: response.data
+  });
+}
+
 export const searchPhotos = term => async dispatch => {
   const response = await unsplash.get('/search/photos', {
     params: {
       query: term,
-      per_page: 30,
+      per_page: 20,
     }
   });
 

@@ -4,11 +4,11 @@ import { LoadingContainer } from '../../styled/Loading';
 
 const Loading = () => {
   return (
-    <LoadingContainer className="ui segment">
-      <div className="ui active dimmer">
-        <div className="ui massive text loader">Loading...</div>
+    <LoadingContainer>
+      <div className="spinner">
+        <div className="dot1"></div>
+        <div className="dot2"></div>
       </div>
-      <p></p>
     </LoadingContainer>
   );
 };

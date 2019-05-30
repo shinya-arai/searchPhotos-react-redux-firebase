@@ -5,10 +5,12 @@ import {
   changeMobileFalse, 
   changeModal, 
   changeWeb, 
-  fetchLatestPhotos 
+  fetchLatestPhotos,
+  addLatestPhotos
 } from '../actions';
 
-import InfiniteScroll from 'react-infinite-scroller';
+// import InfiniteScroll from 'react-infinite-scroller';
+import { Waypoint } from 'react-waypoint';
 
 import AppNavigation from './SideNav';
 import NavBar from './NavBar';
@@ -57,17 +59,8 @@ class MainPage extends React.Component {
               </div>
 
               <ImageListContainer>
-                <div style={{  }}>
-                  <InfiniteScroll
-                    pageStart={0}
-                    loadMore={() =>console.log('aaa')}
-                    hasMore={true || false}
-                    loader={<div className="loader" key={0}>Loading ...</div>}
-                    useWindow={false}
-                  >
-                    <Images />
-                  </InfiniteScroll>
-                </div>
+                <Images />
+                <Waypoint onEnter={() => console.log('aa')} />
               </ImageListContainer>
             </ContentsWrapper>
 
@@ -85,5 +78,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps, 
-  { changeMobileFalse, changeModal, changeWeb, fetchLatestPhotos }
+  { changeMobileFalse, changeModal, changeWeb, fetchLatestPhotos, addLatestPhotos }
 )(MainPage);
