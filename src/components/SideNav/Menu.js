@@ -3,10 +3,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { 
   changeMobileFalse, 
-  changeModal, 
   changeModalAndWeb, 
   fetchLatestPhotos,
-  changeWeb
+  changeWeb,
+  changeModal
 } from '../../actions';
 
 import { Transition } from 'react-transition-group';
@@ -72,7 +72,6 @@ class Menu extends React.Component {
       selectedPath,
       web,
       changeMobileFalse,
-      changeModal,
       modal,
     } = this.props;
 
@@ -131,9 +130,7 @@ class Menu extends React.Component {
           </div>
   
           {modal && (
-            <SearchModal 
-              onCloseModal={() => changeModal()} 
-            />
+            <SearchModal />
           )}
   
         </SideNavContainer>
@@ -152,5 +149,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { changeMobileFalse, changeModal, changeModalAndWeb, fetchLatestPhotos, changeWeb }
+  { changeMobileFalse, changeModalAndWeb, fetchLatestPhotos, changeWeb, changeModal }
 )(Menu);

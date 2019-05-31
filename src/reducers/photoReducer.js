@@ -2,6 +2,8 @@ const initialState = {
   photos: [],
   term: '',
   isPhotos: null,
+  page: 1,
+  loading: true
 };
 
 export default (state = initialState, action) => {
@@ -11,16 +13,24 @@ export default (state = initialState, action) => {
         ...state,
         photos: action.payload,
         isPhotos: true,
+        loading: false,
       };
     case 'CLICK_HOME':
       return {
         ...state,
         term: action.payload.term
-      }
-    case 'ADD_LATEST_PHOTOS':
+      };
+    case 'LOADING_TRUE':
       return {
         ...state,
-        photos: [ ...state.photos, action.payload ]
+        loading: true,
+      };
+    case 'ADD_PHOTOS':
+      return {
+        ...state,
+        photos: state.photos.concat(action.payload.photos),
+        page: action.payload.page,
+        loading: false
       };
       
     case 'SEARCH_PHOTOS':

@@ -6,15 +6,16 @@ import {
   changeModal, 
   changeWeb, 
   fetchLatestPhotos,
-  addLatestPhotos
+  addPhotos,
+  loadingTrue
 } from '../actions';
 
-// import InfiniteScroll from 'react-infinite-scroller';
 import { Waypoint } from 'react-waypoint';
 
 import AppNavigation from './SideNav';
 import NavBar from './NavBar';
 import Images from './Images';
+import Waiting from './Loading/waiting';
 
 import { 
   NavBarContainer, 
@@ -39,30 +40,41 @@ class MainPage extends React.Component {
     }
   };
 
+  loading = () => {
+    this.props.loadingTrue();
+
+    this.props.addPhotos();
+  };
+
   render() {
-    const { web } = this.props;
+    const { web, loading } = this.props;
 
     return (
       <WholeWrapper>
         
         <AppNavigation />
 
-            <ContentsWrapper isOpen={web} isMobile>
-              <NavBarContainer>
-                <NavBar />
-              </NavBarContainer>
+        <ContentsWrapper isOpen={web} isMobile>
+          <NavBarContainer>
+            <NavBar />
+          </NavBarContainer>
 
-              <div className="ui raised segment term-wrapper">
-                <SearchTerm>
-                  {this.displayTerm()}
-                </SearchTerm>
+          <div className="ui raised segment term-wrapper">
+            <SearchTerm>
+              {this.displayTerm()}
+            </SearchTerm>
+          </div>
+
+          <ImageListContainer>
+            <Images />
+            <Waypoint onEnter={this.loading} />
+            {loading && (
+              <div style={{ position: 'absolute', bottom: '2rem' }}>
+                <Waiting />
               </div>
-
-              <ImageListContainer>
-                <Images />
-                <Waypoint onEnter={() => console.log('aa')} />
-              </ImageListContainer>
-            </ContentsWrapper>
+            )}
+          </ImageListContainer>
+        </ContentsWrapper>
 
       </WholeWrapper>
     );
@@ -72,11 +84,12 @@ class MainPage extends React.Component {
 const mapStateToProps = state => {
   return {
     web: state.isOpen.web,
-    term: state.photo.term
+    term: state.photo.term,
+    loading: state.photo.loading
   };
 }
 
 export default connect(
-  mapStateToProps, 
-  { changeMobileFalse, changeModal, changeWeb, fetchLatestPhotos, addLatestPhotos }
+  mapStateToProps,
+  { changeMobileFalse, changeModal, changeWeb, fetchLatestPhotos, addPhotos, loadingTrue }
 )(MainPage);

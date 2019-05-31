@@ -50,7 +50,7 @@ class GoogleLogin extends React.Component {
           className="ui raise segment"
           onClick={this.signInWithGoogle}
         >
-          <div style={{ width: '16%' }}>
+          <div style={{ width: '24%' }}>
             <Icon size={20} icon={google} />
           </div>
           Sign In With Google

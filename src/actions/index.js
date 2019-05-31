@@ -8,7 +8,7 @@ export const fetchUser = () => async dispatch => {
       payload: user
     })
   });
-}
+};
 
 export const fetchLatestPhotos = () => async (dispatch, getState) => {
   const { term } = getState().photo;
@@ -16,7 +16,7 @@ export const fetchLatestPhotos = () => async (dispatch, getState) => {
   const response = await unsplash.get('/photos', {
     params: {
       order_by: 'latest',
-      per_page: 20,
+      per_page: 15,
     }
   });
 
@@ -33,27 +33,59 @@ export const fetchLatestPhotos = () => async (dispatch, getState) => {
     type: 'FETCH_LATEST_PHOTOS',
     payload: response.data
   });
-}
+};
 
-export const addLatestPhotos = () => async dispatch => {
-  const response = await unsplash.get('/photos', {
-    params: {
-      order_by: 'latest',
-      per_page: 20,
-    }
-  });
+export const loadingTrue = () => {
+  return {
+    type: 'LOADING_TRUE',
+  };
+};
 
-  dispatch({
-    type: 'ADD_LATEST_PHOTOS',
-    payload: response.data
-  });
-}
+export const addPhotos = () => async (dispatch, getState) => {
+  const { page, term } = getState().photo;
+
+  if(!term || term === 'Latest Photos') {
+    const response = await unsplash.get('/photos', {
+      params: {
+        order_by: 'latest',
+        page: page + 1,
+        per_page: 15,
+      }
+    });
+  
+    dispatch({
+      type: 'ADD_PHOTOS',
+      payload: {
+        photos: response.data,
+        page: page + 1
+      }
+    });
+  }
+
+  else if(term) {
+    const response = await unsplash.get('/search/photos', {
+      params: {
+        query: term,
+        page: page + 1,
+        per_page: 15
+      }
+    });
+
+    dispatch({
+      type: 'ADD_PHOTOS',
+      payload: {
+        photos: response.data.results,
+        page: page + 1
+      }
+    });
+  }
+};
 
 export const searchPhotos = term => async dispatch => {
   const response = await unsplash.get('/search/photos', {
     params: {
       query: term,
-      per_page: 20,
+      per_page: 15,
     }
   });
 
@@ -70,34 +102,34 @@ export const searchPhotos = term => async dispatch => {
       }
     });
   }
-}
+};
 
 export const changeWeb = () => {
   return {
     type: 'CHANGE_WEB'
   };
-}
+};
 
 export const changeMobile = () => {
   return {
     type: 'CHANGE_MOBILE'
   };
-}
+};
 
 export const changeMobileFalse = () => {
   return {
     type: 'CHANGE_MOBILE_FALSE'
   };
-}
+};
 
 export const changeModal = () => {
   return {
     type: 'CHANGE_MODAL'
-  }
-}
+  };
+};
 
 export const changeModalAndWeb = () => {
   return {
     type: 'CHANGE_MODAL_AND_WEB'
-  }
-}
+  };
+};
