@@ -7,7 +7,7 @@
     "firebase": "^6.0.2",
     "grommet": "^2.6.5",
     "grommet-icons": "^4.2.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "react": "^16.8.4",
     "react-device-detect": "^1.6.2",
     "react-dom": "^16.8.4",
